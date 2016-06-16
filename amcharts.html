@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<link rel="stylesheet" type="text/css" href="css/amcharts.css">
+
+
+<script>
+
+AmCharts.makeChart("chartdiv", {
+  "type": "pie",
+  "theme": "light",
+  "pullOutDuration": 11,
+  "pullOutEffect": "elastic",
+  "sequencedAnimation": false,
+   "fontSize": 12,
+  "dataProvider": [ {
+    "country": "Lithuania",
+    "value": 260
+  }, {
+    "country": "Ireland",
+    "value": 201
+  }, {
+    "country": "Germany",
+    "value": 65
+  }, {
+    "country": "Australia",
+    "value": 39
+  }, {
+    "country": "UK",
+    "value": 19
+  }, {
+    "country": "Latvia",
+    "value": 10
+  } ],
+  "valueField": "value",
+  "titleField": "country",
+  "outlineAlpha": 0.4,
+  "depth3D": 15,
+  "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+  "angle": 30,
+  "export": {
+    "enabled": true
+  }
+} 
+);
+
+
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+  
+  
+</head>
+ <body>
+
+<div id="MainMenu">
+  <div class="col-lg-12">
+     <div  id="chartdiv"></div>
+      <div class="container-fluid"></div></div>	
+	      <div id="col-lg-12">
+		  <div id="chartdiv1"></div>
+      <div class="container-fluid"></div>	</div>
+</div>			
+			
+
+</body>
+</html>
+
+
+
+
+
+								
