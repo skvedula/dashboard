@@ -1,0 +1,1 @@
+angular.module('Dash', ['ui.bootstrap', 'ui.router', 'ngCookies']);

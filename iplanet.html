@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Dash">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" > 
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="css/amcharts.css">
+  <link rel="stylesheet" type="text/css" href="css/morris.css">
+  <link rel="stylesheet" type="text/css" href="css/amgraphs.css">
+  <link rel="stylesheet" type="text/css" href="css/tile.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.min.css">
+  
+  
+  <title>Messaging Dashboard</title>
+  <!-- STYLES -->
+      <link rel="stylesheet" type="text/css" href="css/main.min.css">
+	    <!-- endbuild -->
+  <!-- SCRIPTS -->
+    <script type="text/javascript" src="js/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+     <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+	 <!-- amgraphs-->
+	 <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/serial.js"></script>
+<script type="text/javascript" src="http://cdn.amcharts.com/lib/3/lang/ru.js"></script>
+      <script type="text/javascript" src="js/main.min.js"></script> 
+       <!--Donut chart Scripts -->
+	       <script type="text/javascript" src="js/morris/jquery.min.js"></script>
+            <script type="text/javascript" src="js/morris/morris.js"></script>
+	         <script type="text/javascript" src="js/morris/morris.min.js"></script>
+	           <script type="text/javascript" src="js/morris/raphael-min.js"></script>
+              <!-- end -->
+          <!--end-->
+
+  <!-- Custom Scripts -->
+        <script type="text/javascript" src="js/dashboard.min.js"></script>
+        <script type="text/javascript" src="js/custom/amcharts.js"></script>   
+		<script type="text/javascript" src="js/custom/amgraphs.js"></script>
+ 
+    <!-- endbuild --> 
+</head>
+
+<body ng-controller="MasterCtrl"  >
+
+  <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar">
+        <li class="sidebar-main">
+          <a ng-click="toggleSidebar()">
+            DASHBOARD 
+            <span class="menu-icon fa fa-arrows-h"></span>
+          </a>
+        </li>
+        	
+               </ul>
+      <div class="sidebar-footer">
+        <div class="col-xs-6">
+          <a href="#" target="_blank">
+            Help
+          </a>
+        </div>
+         <div class="col-xs-6">
+            <a href="#">
+                Query
+            </a>
+        </div>
+      </div>
+    </div>
+    <!-- End Sidebar -->
+
+    <div id="content-wrapper">
+      <div class="page-content">
+
+        <!-- Header Bar -->
+       <nav class="navbar navbar-dark bg-inverse" style="background-color: #E4E2FF;">
+          <div class="col-xs-12">
+		            <ul class="nav nav-pills">
+					 <a class="pull-left"><img src="img/logo2.png"></a>
+                      <li><a data-toggle="pill" href="dashboard">Home</a></li>
+                           <li><a data-toggle="pill" href="exchange">Exchange</a></li>
+                                <li class="active"><a data-toggle="pill" href="iplanet">Iplanet</a></li>
+                                <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="dashboard">Reports
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Health Check</a></li>
+          <li><a href="#">Database</a></li>
+          <li><a href="#">Domain Summary</a></li> 
+        </ul>
+      </li>
+                    </ul>
+           
+            </div>
+			</nav>
+			       
+        <!-- End Header Bar -->
+
+        <!-- Main Content -->
+        <div class="ui-view"> 
+		
+		<!-- Tiles for Iplanet -->
+		<div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+								<strong>
+                                    <div class="huge">prh00939</div>
+                                    <div>Iplanet Server</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+				
+				<div class="col-lg-3 col-md-6">
+                    <div class="tempStatBox">
+						<div class="tempStat" style="border-color: rgb(234, 232, 116);">20%</div>
+						<span>CPU Consumption</span>
+					</div>
+                </div>
+				
+				<div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">prh00940</div>
+                                    <div>Iplanet Server</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+				
+				<div class="col-lg-3 col-md-6">
+                    					<div class="tempStatBox">
+						<div class="tempStat" style="border-color: rgb(250, 96, 61);">85%</div>
+						<span>CPU Consumption</span>
+					</div>
+                </div>
+				</strong>
+			
+		<div class="col-lg-12"><br><br> 
+         <p>prh00939.prod</p>		
+        <div id="amgraph"></div>  <!-- AM graphs -->
+        </div>
+		
+           <!-- Am charts -->																								
+		<div class="col-lg-6">
+		  <div id="chartdiv"></div>
+	    </div>
+		<div class="col-lg-6">
+		  <div id="chartdiv2"></div>
+		   	    </div>
+		<!-- <div class="col-lg-4">
+		    <div id="chartdiv3"></div> -->
+		</div>
+	    
+		 </div><!-- End Page Content -->
+    </div><!-- End Content Wrapper -->
+  </div><!-- End Page Wrapper -->
+  
+</body>
+</html>
