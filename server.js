@@ -1,6 +1,16 @@
 var express = require("express");
 var app     = express();
 var path    = require("path");
+var mysql      = require('mysql');
+
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'mysql123',
+  database : 'sys'
+});
+
+connection.connect();
 
 app.use(express.static('public'));
 
@@ -11,6 +21,17 @@ app.get('/',function(req,res){
 
 app.get('/dashboard',function(req,res){
   res.sendFile(path.join(__dirname+'/dashboard.html'));
+  //__dirname : It will resolve to your project folder.
+});
+
+app.get('/dashboard/data',function(req,res){
+	connection.query('SELECT * from testdb', function(err, rows, fields) {
+	  if (!err)
+	  	res.send(rows);
+	    // console.log('The solution is: ', rows);
+	  else
+	    console.log('Error while performing Query.');
+	});
   //__dirname : It will resolve to your project folder.
 });
 
