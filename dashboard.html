@@ -98,13 +98,13 @@
 		<tbody>
 		<thead><tr><th>Database Name</th><th>Server</th><th>Database File</th><th>Database Size</th><th>White Space</th><th>Last Full Backup</th><th>No Back-up Since</th><th>State</th></tr></thead>
 		<tr ng-repeat="x in tableData">
-			<td>{{ x.db_name }}</td>
-			<td>{{ x.server }}</td>
-			<td>{{ x.db_file }}</td>
-			<td>{{ x.db_size }}</td>
-			<td>{{ x.whitespace }}</td>
-			<td>{{ x.last_fullbackup }}</td>
-			<td>{{ x.nobackup_since }}</td>
+			<td> {{ x.db_name }} </td>
+			<td> {{ x.server }} </td>
+			<td> {{ x.db_file }} </td>
+			<td> {{ x.db_size }} </td>
+			<td> {{ x.whitespace }} </td>
+			<td> {{ x.last_fullbackup }} </td>
+			<td> 0 </td>
 			<!-- <td>{{ x.state}}</td> todo--> 
 		</tr>
 		</tbody>
