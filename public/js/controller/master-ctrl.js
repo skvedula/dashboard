@@ -37,18 +37,9 @@ function MasterCtrl($http, $scope, $cookieStore) {
         $scope.$apply();
     };
 
-    // $http.get("http://localhost:3000/dashboard/data")
-    // .then(function (response) {
-    //     $rootScope.tableData = JSON.stringify(response.data);
-    //     $scope.$apply();
-    // });
     $scope.getTableData = function(){
       console.log("came here tadaaa");
       $http.get("http://localhost:3000/dashboard/data")
       .then(function (response) {$scope.tableData = response.data;});
     };
-    // window.onload = function() {
-    //     $scope.getTableData();
-    // };    
-    // $scope.init();
 }
