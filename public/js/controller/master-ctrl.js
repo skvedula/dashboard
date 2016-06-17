@@ -3,9 +3,9 @@
  */
 
 angular.module('Dash')
-    .controller('MasterCtrl', ['$scope', '$cookieStore', MasterCtrl]);
+    .controller('MasterCtrl', ['$http', '$scope', '$cookieStore', MasterCtrl]);
 
-function MasterCtrl($scope, $cookieStore) {
+function MasterCtrl($http, $scope, $cookieStore) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -36,4 +36,18 @@ function MasterCtrl($scope, $cookieStore) {
     window.onresize = function() {
         $scope.$apply();
     };
+
+    $http.get("http://localhost:3000/dashboard/data")
+    .then(function (response) {
+        $scope.tableData = JSON.stringify(response.data);
+    });
+    // $scope.init = function($scope, $http){
+    //   console.log("came here tadaaa");
+    //   $http.get("http://localhost:3000/dashboard/data")
+    //   .then(function (response) {$scope.tableData = response;});
+    // };
+    // // window.onload = function() {
+    // //     $scope.getTableData();
+    // // };    
+    // $scope.init();
 }

@@ -26,9 +26,9 @@ app.get('/dashboard',function(req,res){
 
 app.get('/dashboard/data',function(req,res){
 	connection.query('SELECT * from testdb', function(err, rows, fields) {
-	  if (!err)
+	  if (!err) {
 	  	res.send(rows);
-	    // console.log('The solution is: ', rows);
+	  }
 	  else
 	    console.log('Error while performing Query.');
 	});
