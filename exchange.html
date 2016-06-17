@@ -33,11 +33,12 @@
         <script type="text/javascript" src="js/dashboard.min.js"></script>
         <script type="text/javascript" src="js/custom/amcharts.js"></script>   
 		<script type="text/javascript" src="js/custom/amgraphs.js"></script>
+		<script type="text/javascript" src="js/controller/master-ctrl.js"></script>
  
     <!-- endbuild --> 
 </head>
 
-<body ng-controller="MasterCtrl"  >
+<body ng-controller="MasterCtrl" ng-init="getTableData()">
 
   <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
 
@@ -95,16 +96,16 @@
 		<div class="table-responsive ng-scope"><table class="table">
 		<tbody>
 		<thead><tr><th>Database Name</th><th>Server</th><th>Database File</th><th>Database Size</th><th>White Space</th><th>Last Full Backup</th><th>No Back-up Since</th><th>State</th></tr></thead>
-		<tr><td>FXGEXEC001</td><td>PWN90115</td><td>L:\Program Files\Exchsrvr\FXGEXEC001\FXGEXEC001.edb</td><td>50</td><td>0.428</td><td>Monday, April 18, 2016 7:35:45 PM</td><td>0</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td>FXGEXEC002</td><td>PWN90115</td><td>L:\Program Files\Exchsrvr\FXGEXEC001\FXGEXEC001.edb</td><td>50</td><td>0.428</td><td>Monday, April 18, 2016 7:35:45 PM</td><td>0</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td>MBXAPAC004</td><td>PWN90115</td><td>N:\Program Files\Exchsrvr\Mailbox\MBXAPAC004\MBXAPAC004.edb</td><td>50</td><td>0.428</td><td>Monday, April 18, 2016 7:35:45 PM</td><td>1</td><td><span tooltip="Notification!" class="text-danger ng-scope"><i class="fa fa-flash"></i></span></td></tr>
-		<tr><td>FXGEXEC002</td><td>PWN90115</td><td>L:\Program Files\Exchsrvr\FXGEXEC001\FXGEXEC001.edb</td><td>50</td><td>0.428</td><td>Monday, April 18, 2016 7:35:45 PM</td><td>0</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td>MBXAPAC004</td><td>PWN90115</td><td>N:\Program Files\Exchsrvr\Mailbox\MBXAPAC004\MBXAPAC004.edb</td><td>50</td><td>0.428</td><td>Monday, April 18, 2016 7:35:45 PM</td><td>2</td><td><span tooltip="Check!" class="text-danger ng-scope"><i class="fa fa-warning"></i></span></td></tr>
-        <tr><td>FXGEXEC001</td><td>PWN90115</td><td>L:\Program Files\Exchsrvr\FXGEXEC001\FXGEXEC001.edb</td><td>50</td><td>0.428</td><td>Monday, April 18, 2016 7:35:45 PM</td><td>0</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td>FXGEXEC002</td><td>PWN90115</td><td>L:\Program Files\Exchsrvr\FXGEXEC001\FXGEXEC001.edb</td><td>50</td><td>0.428</td><td>Monday, April 18, 2016 7:35:45 PM</td><td>0</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td>MBXAPAC004</td><td>PWN90115</td><td>N:\Program Files\Exchsrvr\Mailbox\MBXAPAC004\MBXAPAC004.edb</td><td>50</td><td>0.428</td><td>Monday, April 18, 2016 7:35:45 PM</td><td>1</td><td><span tooltip="Notification!" class="text-danger ng-scope"><i class="fa fa-flash"></i></span></td></tr>
-		<tr><td>FXGEXEC002</td><td>PWN90115</td><td>L:\Program Files\Exchsrvr\FXGEXEC001\FXGEXEC001.edb</td><td>50</td><td>0.428</td><td>Monday, April 18, 2016 7:35:45 PM</td><td>0</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td>MBXAPAC004</td><td>PWN90115</td><td>N:\Program Files\Exchsrvr\Mailbox\MBXAPAC004\MBXAPAC004.edb</td><td>50</td><td>0.428</td><td>Monday, April 18, 2016 7:35:45 PM</td><td>2</td><td><span tooltip="Check!" class="text-danger ng-scope"><i class="fa fa-warning"></i></span></td></tr>
+		<tr ng-repeat="x in tableData">
+			<td> {{ x.db_name }} </td>
+			<td> {{ x.server }} </td>
+			<td> {{ x.db_file }} </td>
+			<td> {{ x.db_size }} </td>
+			<td> {{ x.whitespace }} </td>
+			<td> {{ x.last_fullbackup }} </td>
+			<td> 0 </td>
+			<!-- <td>{{ x.state}}</td> todo--> 
+		</tr>
 		</tbody>
 		</table>
 		</div>
