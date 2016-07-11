@@ -35,6 +35,17 @@ app.get('/dashboard/data',function(req,res){
   //__dirname : It will resolve to your project folder.
 });
 
+app.get('/get_email_data',function(req,res){
+  connection.query('SELECT * from email_domains', function(err, rows, fields) {
+    if (!err) {
+      res.send(rows);
+    }
+    else
+      console.log('Error while performing Query.');
+  });
+  //__dirname : It will resolve to your project folder.
+});
+
 app.get('/exchange',function(req,res){
   res.sendFile(path.join(__dirname+'/exchange.html'));
 });
