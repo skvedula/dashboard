@@ -5,27 +5,26 @@ var chart = AmCharts.makeChart( "chartdiv", {
   "pullOutEffect": "elastic",
   "sequencedAnimation": false,
    "fontSize": 12,
-  "dataProvider": [ {
-    "country": "Services",
-    "value": 260
+  "dataProvider": 
+  [ 
+  {
+    "server": "TAO",
+    "value": 3668
   }, {
-    "country": "Express",
-    "value": 201
+    "server": "Exchange",
+    "value": 101454
   }, {
-    "country": "Ground",
-    "value": 65
+    "server": "OCMS",
+    "value": 120689
   }, {
-    "country": "Freight",
-    "value": 39
+    "server": "Lotus",
+    "value": 4
   }, {
-    "country": "Office",
-    "value": 19
-  }, {
-    "country": "SupplyChain",
-    "value": 10
+    "server": "Other",
+    "value": 15
   } ],
   "valueField": "value",
-  "titleField": "country",
+  "titleField": "server",
   "outlineAlpha": 0.4,
   "depth3D": 15,
   "balloonText": "[[title]]<br><span style='font-size:25px'><b>[[value]]</b> ([[percents]]%)</span>",
