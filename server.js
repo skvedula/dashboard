@@ -3,14 +3,14 @@ var app     = express();
 var path    = require("path");
 var mysql      = require('mysql');
 
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'mysql123',
-  database : 'sys'
+var pool  = mysql.createPool({
+  connectionLimit : 100,
+  host            : '172.31.49.151',
+  user            : 'pinuser',
+  password        : 'pin@123',
+  database        : 'pdb60166'
 });
 
-connection.connect();
 
 app.use(express.static('public'));
 
@@ -25,26 +25,33 @@ app.get('/dashboard',function(req,res){
 });
 
 app.get('/dashboard/data',function(req,res){
-	connection.query('SELECT * from testdb', function(err, rows, fields) {
-	  if (!err) {
-	  	res.send(rows);
-	  }
-	  else
-	    console.log('Error while performing Query.');
-	});
-  //__dirname : It will resolve to your project folder.
+  pool.getConnection(function(err, connection) {
+    // Use the connection
+    connection.query( 'SELECT * FROM exchangedbreport', function(err, rows) {
+      if (!err) {
+        connection.release();
+        res.send(rows);
+      }
+      else
+        console.log('Error while performing Query.');
+    });      
+  });
 });
 
 app.get('/get_email_data',function(req,res){
-  connection.query('SELECT * from email_domains', function(err, rows, fields) {
-    if (!err) {
-      res.send(rows);
-    }
-    else
-      console.log('Error while performing Query.');
+  pool.getConnection(function(err, connection) {
+    // Use the connection
+    connection.query( 'SELECT * FROM email_domains', function(err, rows) {
+      if (!err) {
+        connection.release();
+        res.send(rows);
+      }
+      else
+        console.log('Error while performing Query.');
+    });      
   });
-  //__dirname : It will resolve to your project folder.
 });
+
 
 app.get('/exchange',function(req,res){
   res.sendFile(path.join(__dirname+'/exchange.html'));
