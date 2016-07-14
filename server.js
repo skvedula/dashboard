@@ -5,10 +5,10 @@ var mysql      = require('mysql');
 
 var pool  = mysql.createPool({
   connectionLimit : 100,
-  host            : '172.31.49.151',
+  host            : 'localhost',
   user            : 'pinuser',
   password        : 'pin@123',
-  database        : 'pdb60166'
+  database        : 'sys'
 });
 
 
@@ -27,7 +27,7 @@ app.get('/dashboard',function(req,res){
 app.get('/dashboard/data',function(req,res){
   pool.getConnection(function(err, connection) {
     // Use the connection
-    connection.query( 'SELECT * FROM exchangedbreport', function(err, rows) {
+    connection.query( 'SELECT * FROM testdb', function(err, rows) {
       if (!err) {
         connection.release();
         res.send(rows);

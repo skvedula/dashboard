@@ -5,24 +5,10 @@ var chart = AmCharts.makeChart( "chartdiv", {
   "pullOutEffect": "elastic",
   "sequencedAnimation": false,
    "fontSize": 12,
-  "dataProvider": 
-  [ 
-  {
-    "server": "TAO",
-    "value": 3668
-  }, {
-    "server": "Exchange",
-    "value": 101454
-  }, {
-    "server": "OCMS",
-    "value": 120689
-  }, {
-    "server": "Lotus",
-    "value": 4
-  }, {
-    "server": "Other",
-    "value": 15
-  } ],
+  "dataLoader": {
+    "url": "http://localhost:3000/get_email_data",
+    "format": "json"
+  },
   "valueField": "value",
   "titleField": "server",
   "outlineAlpha": 0.4,
@@ -108,5 +94,3 @@ var chart3 = AmCharts.makeChart( "chartdiv3", {
     "enabled": true
   }
 } );
-
-

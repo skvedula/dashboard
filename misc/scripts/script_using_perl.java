@@ -144,19 +144,24 @@ public class DReport extends EmailDomain {
 			UPDATE table-name 
    SET column-name = value, column-name = value, ...
 			
-			String sql = "UPDATE email_domains SET TAO=data[0],Exchange=data[1],OCMS=data[2],Lotus=data[3],Other=data[4],Total=data[5])";
-			
-			
+			String sql = "UPDATE email_domains SET value=data[0] where server=TAO";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			EmailDomain test = new EmailDomain();
-			preparedStatement.setString(1, data[0]);
-			preparedStatement.setString(2, data[1]);
-			preparedStatement.setString(3, data[2]);
-			preparedStatement.setString(4, data[3]);
-			preparedStatement.setString(5, data[4]);
-			preparedStatement.setString(6, data[5]);
 			preparedStatement.executeUpdate(); 
-			
+      String sql = "UPDATE email_domains SET value=data[1] where server=Exchange";
+      PreparedStatement preparedStatement = conn.prepareStatement(sql);
+      preparedStatement.executeUpdate();
+      String sql = "UPDATE email_domains SET value=data[2] where server=OCMS";
+      PreparedStatement preparedStatement = conn.prepareStatement(sql);
+      preparedStatement.executeUpdate();
+      String sql = "UPDATE email_domains SET value=data[3] where server=Lotus";
+      PreparedStatement preparedStatement = conn.prepareStatement(sql);
+      preparedStatement.executeUpdate();
+      String sql = "UPDATE email_domains SET value=data[4] where server=Other";
+      PreparedStatement preparedStatement = conn.prepareStatement(sql);
+      preparedStatement.executeUpdate();
+      String sql = "UPDATE email_domains SET value=data[5] where server=Total";
+      PreparedStatement preparedStatement = conn.prepareStatement(sql);
+      preparedStatement.executeUpdate();                             			
 			/*while (rs.next()) {
 				// Retrieve by column name
 				

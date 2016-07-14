@@ -38,8 +38,11 @@ function MasterCtrl($http, $scope, $cookieStore) {
     };
 
     $scope.getTableData = function(){
-      console.log("came here tadaaa");
       $http.get("http://localhost:3000/dashboard/data")
       .then(function (response) {$scope.tableData = response.data;});
     };
+    $scope.getEmailDomainData = function(){
+      $http.get("http://localhost:3000/get_email_data")
+      .then(function (response) {$scope.reportData = response.data[1];});
+    };    
 }

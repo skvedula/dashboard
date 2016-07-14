@@ -24,9 +24,13 @@
 --
 
 CREATE TABLE `email_domains` (
-  `domain_type` varchar(64) NOT NULL,
-  `domain_name` varchar(64) NOT NULL,
-  `domain_mapping_count` int(10) NOT NULL,
-  `administered_by` varchar(64) NOT NULL
+  `server` varchar(64) NOT NULL,
+  `value` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT into sys.email_domains (server, value) values ("TAO", 10);
+INSERT into sys.email_domains (server, value) values ("Exchange", 10);
+INSERT into sys.email_domains (server, value) values ("OCMS", 10);
+INSERT into sys.email_domains (server, value) values ("Lotus", 10);
+INSERT into sys.email_domains (server, value) values ("Other", 10);
+INSERT into sys.email_domains (server, value) values ("Total", 10);
