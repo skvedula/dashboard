@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
  
-public class DReport extends EmailDomain {
+public class DReport  {
   public static void main(String[] arg) {
-	String[] data = null;
-	  
+  String[] data = null;
+    
     try{
       JSch jsch=new JSch();  
  
@@ -47,25 +47,10 @@ public class DReport extends EmailDomain {
         while(in.available()>0){
           int i=in.read(tmp, 0, 1024);
           if(i<0)break;
-          //System.out.println(new String(tmp, 0, i));
           String res = new String(tmp, 0, i);
           data = new String[4];
-  		data = res.split("\\s+"); /* data is array of values */
-  		String D1 = data[0];
+      data = res.split("\\s+"); /* data is array of values */
 
-  		System.out.println("D1"+ D1 );
-  		String D2 = data[1];
-  		System.out.println("D2"+ D2 );
-  		String D3 = data[2];
-  		System.out.println("D3"+ D3 );
-  		String D4 = data[3];
-  		System.out.println("D4"+ D4 );
-  		String D5 = data[4];
-  		System.out.println("D5"+ D5 );
-  		String D6 = data[5];
-  		System.out.println("D6"+ D6 );
-  				
-          //System.out.println("result"+res);
         }
         
         if(channel.isClosed()){
@@ -85,10 +70,10 @@ public class DReport extends EmailDomain {
     String response = insertToEmailDomains(data);
     
     if(response.equalsIgnoreCase("success")){
-    	System.out.println("Insertion to table email_domains is successful.");
+      System.out.println("Insertion to table email_domains is succesful.");
     }
     else
-    	System.out.println("Insertion failed.");
+      System.out.println("Insertion failed.");
     
   }
  
@@ -114,91 +99,99 @@ public class DReport extends EmailDomain {
   
   
   public static String insertToEmailDomains(String[] data){
-	  
-	  System.out.println("Before Connecting to database...");
+    
+    System.out.println("Before Connecting to database...");
 
-		final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-		final String DB_URL = "jdbc:mysql://172.31.49.151/pdb60166";
-		
+    final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    final String DB_URL = "jdbc:mysql://172.31.49.151/pdb60166";
+    
 
-		// Database credentials
-		final String USER = "pinuser";
-		final String PASS = "pin@123";
+    // Database credentials
+    final String USER = "pinuser";
+    final String PASS = "pin@123";
 
-		Connection conn = null;
-		//Statement stmt = null;
-		try {
-			// STEP 2: Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
+    Connection conn = null;
+    //Statement stmt = null;
+    try {
+      // STEP 2: Register JDBC driver
+      Class.forName("com.mysql.jdbc.Driver");
 
-			// STEP 3: Open a connection
-			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+      // STEP 3: Open a connection
+      System.out.println("Connecting to database...");
+      conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-			// STEP 4: Execute a query
-			System.out.println("Creating statement...");
-			//stmt = conn.createStatement();
-			//String sql;
-			//sql = "SELECT * FROM email_domains";
-			//ResultSet rs = stmt.executeQuery(sql);
-			UPDATE table-name 
-   SET column-name = value, column-name = value, ...
-			
-			String sql = "UPDATE email_domains SET value=data[0] where server=TAO";
-			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.executeUpdate(); 
-      String sql = "UPDATE email_domains SET value=data[1] where server=Exchange";
-      PreparedStatement preparedStatement = conn.prepareStatement(sql);
-      preparedStatement.executeUpdate();
-      String sql = "UPDATE email_domains SET value=data[2] where server=OCMS";
-      PreparedStatement preparedStatement = conn.prepareStatement(sql);
-      preparedStatement.executeUpdate();
-      String sql = "UPDATE email_domains SET value=data[3] where server=Lotus";
-      PreparedStatement preparedStatement = conn.prepareStatement(sql);
-      preparedStatement.executeUpdate();
-      String sql = "UPDATE email_domains SET value=data[4] where server=Other";
-      PreparedStatement preparedStatement = conn.prepareStatement(sql);
-      preparedStatement.executeUpdate();
-      String sql = "UPDATE email_domains SET value=data[5] where server=Total";
-      PreparedStatement preparedStatement = conn.prepareStatement(sql);
-      preparedStatement.executeUpdate();                             			
-			/*while (rs.next()) {
-				// Retrieve by column name
-				
-				String domainType = rs.getString("domain_type");
-				String domainMappinCount = rs.getString("domain_mapping_count");
-			}
+      // STEP 4: Execute a query
+      System.out.println("Creating statement...");
+      //int data1 = Integer.parseInt(data[0]);
+      String data1 = data[0];
+        String d1 = data1.replaceAll("[,]", "");
+        int D1 = Integer.parseInt(d1);
+          // System.out.println("tao: "+ D1 );  
+          
+          String data2 = data[1];
+        String d2 = data2.replaceAll("[,]", "");
+        int D2 = Integer.parseInt(d2);
+        // System.out.println("exchange: "+ D2 );
+        
+        String data3 = data[2];
+        String d3 = data3.replaceAll("[,]", "");
+        int D3 = Integer.parseInt(d3);
+        // System.out.println("ocms: "+ D3 );
+        
+        String data4 = data[3];
+        String d4 = data4.replaceAll("[,]", "");
+        int D4 = Integer.parseInt(d4);
+        // System.out.println("lotus: "+ D4 );
+        
+        String data5 = data[4];
+        String d5 = data5.replaceAll("[,]", "");
+        int D5 = Integer.parseInt(d5);
+        // System.out.println("other: "+ D5 );
+        
+        String data6 = data[5];
+        String d6 = data6.replaceAll("[,]", "");
+        int D6 = Integer.parseInt(d6);
+        // System.out.println("total: "+ D6 );
+        
+          PreparedStatement prepStmt = conn.prepareStatement("UPDATE email_domains SET value="+D1+" where server='TAO'");
+       prepStmt.executeUpdate();
+       PreparedStatement prepStmt1 = conn.prepareStatement("UPDATE email_domains SET value="+D2+" where server='Exchange'");
+       prepStmt1.executeUpdate();
+       PreparedStatement prepStmt2 = conn.prepareStatement("UPDATE email_domains SET value="+D3+" where server='OCMS'");
+       prepStmt2.executeUpdate();
+       PreparedStatement prepStmt3 = conn.prepareStatement("UPDATE email_domains SET value="+D4+" where server='Lotus'");
+       prepStmt3.executeUpdate();
+       PreparedStatement prepStmt4 = conn.prepareStatement("UPDATE email_domains SET value="+D5+" where server='Other'");
+       prepStmt4.executeUpdate();
+       PreparedStatement prepStmt5 = conn.prepareStatement("UPDATE email_domains SET value="+D6+" where server='Total'");
+       prepStmt5.executeUpdate();
+       conn.close();
 
-			// STEP 6: Clean-up environment
-			rs.close(); */
-			//stmt.close();
-			conn.close();
-
-		} catch (SQLException se) {
-			// Handle errors for JDBC
-			se.printStackTrace();
-			return "false";
-		} catch (Exception e) {
-			// Handle errors for Class.forName
-			e.printStackTrace();
-			return "false";
-		} finally {
-			/*try {
-				if (stmt != null)
-					stmt.close();
-			} catch (SQLException se2) {
-			} */
-			try {
-				if (conn != null)
-					conn.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-		}
+    } catch (SQLException se) {
+      // Handle errors for JDBC
+      se.printStackTrace();
+      return "false";
+    } catch (Exception e) {
+      // Handle errors for Class.forName
+      e.printStackTrace();
+      return "false";
+    } finally {
+      /*try {
+        if (stmt != null)
+          stmt.close();
+      } catch (SQLException se2) {
+      } */
+      try {
+        if (conn != null)
+          conn.close();
+      } catch (SQLException se) {
+        se.printStackTrace();
+      }
+    }
  
-	  
-	return "Success";
-	
+    
+  return "Success";
+  
   
   }
   

@@ -24,7 +24,7 @@
 --
 
 CREATE TABLE `email_domains` (
-  `server` varchar(64) NOT NULL,
+  `server` varchar(64) NOT NULL PRIMARY KEY,
   `value` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
