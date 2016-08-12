@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Dash">
+<head>
+  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" > 
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="css/amcharts.css">
+  <link rel="stylesheet" type="text/css" href="css/morris.css">
+  <link rel="stylesheet" type="text/css" href="css/amgraphs.css">
+  
+  <title>Messaging Dashboard</title>
+  <!-- STYLES -->
+      <link rel="stylesheet" type="text/css" href="css/main.min.css">
+	    <!-- endbuild -->
+  <!-- SCRIPTS -->
+    <script type="text/javascript" src="js/amcharts.js"></script> 
+    <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+     
+	 <!-- amgraphs-->
+	 <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/serial.js"></script>
+<script type="text/javascript" src="http://cdn.amcharts.com/lib/3/lang/ru.js"></script>
+      <script type="text/javascript" src="js/main.min.js"></script> 
+      
+
+  <!-- Custom Scripts -->
+        <script type="text/javascript" src="js/dashboard.min.js"></script>
+       <script type="text/javascript" src="js/custom/amcharts1.js"></script> 
+     <script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script type="text/javascript" src="js/custom/column_chart.js"></script>
+		
+		<script type="text/javascript" src="js/custom/guage_value.js"></script>
+		
+		<script type="text/javascript" src="js/custom/amgraphs.js"></script>
+		<script type="text/javascript" src="js/controller/master-ctrl.js"></script>
+ <script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
+    <!-- endbuild --> 
+	<style>
+	
+	#guagechart {
+	width	: 80%;
+	height	: 200px;
+}	
+#column_chart {
+	width		: 100%;
+	height		: 435px;
+	font-size	: 11px;
+}																
+	</style>
+</head>
+
+<body ng-controller="MasterCtrl" ng-init="getTableData()">
+
+  <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+
+    
+    <div id="content-wrapper">
+      <div class="page-content">
+
+        <!-- Header Bar -->
+       <nav class="navbar navbar-dark bg-inverse" style="background-color: #E4E2FF;">
+          <div class="col-xs-12">
+		 
+		            <ul class="nav nav-pills">
+					 <a class="pull-left"><img src="img/logo2.png"></a>
+                      <li class="active"><a data-toggle="pill" href="dashboard">Home</a></li>
+                           <li><a data-toggle="pill" href="exchange">Exchange</a></li>
+                                <li><a data-toggle="pill" href="iplanet">Iplanet</a></li>
+                               <!--<li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="dashboard">Reports
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Health Check</a></li>
+          <li><a href="#">Database</a></li>
+		  <li><a href="https://webtools.web.fedex.com/EmailDomainReport">Enterprise Email Domain Report</a></li>
+        </ul>
+      </li>-->
+                    </ul>
+           
+            </div>
+			</nav>
+			
+			
+          
+
+        
+        <!-- End Header Bar -->
+
+        <!-- Main Content -->
+        <div class="ui-view">
+		<div class="col-lg-12">
+		<div id="guagechart"> </div>
+		<div id="column_chart"></div>
+		
+		</div>
+		<div class="col-lg-12"><br> 
+         <p>prh00939.prod</p>		
+        <div id="amgraph"></div>  <!-- AM graphs -->
+        </div>
+		<!-- <div class="row-lg-6">
+		<div class="col-lg-12">
+		
+		<div class="widget">
+		<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		DATABASE REPORT 
+		<div class="pull-right">
+		<a href="#" class="ng-scope">Manage</a>
+		</div></div>
+	
+		<div class="widget-body medium no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table">
+		<tbody>
+		<thead><tr><th>Database Name</th><th>Server</th><th>Database File</th><th>Database Size</th><th>White Space</th><th>Last Full Backup</th><th>No Back-up Since</th><th>State</th></tr></thead>
+		<tr ng-repeat="x in tableData">
+			<td> {{ x.db_name }} </td>
+			<td> {{ x.server }} </td>
+			<td> {{ x.db_file }} </td>
+			<td> {{ x.db_size }} </td>
+			<td> {{ x.whitespace }} </td>
+			<td> {{ x.last_fullbackup }} </td>
+			<td> 0 </td>
+			<!-- <td>{{ x.state}}</td> todo--> 
+		</tr>
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+           <!-- Am charts -->																								
+		<div class="col-lg-6">
+		  <div id="chartdiv"></div>
+		 <b> <div id="legenddiv"></div> </b>
+	    </div>
+		<div class="col-lg-6">
+		  <div id="chartdiv2"></div>
+		<b>  <div id="legenddiv1"></div> </b>
+		   	    </div>
+		<!-- <div class="col-lg-4">
+		    <div id="chartdiv3"></div> -->
+		</div>
+	    
+		
+		
+		<!--<div class="row-lg-6">
+		<div class="col-lg-12">
+		<div class="widget" >
+		<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> Health Check <div class="pull-right" ><input type="text" placeholder="Search" class="form-control input-sm ng-scope">
+		</div>
+		</div>
+		<div class="widget-body medium no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope">
+		<table class="table">
+		<thead><tr><th class="text-center">SERVER</th><th>SITE</th><th>Role</th><th>DNS</th><th>PING</th><th>MAILFLOW TEST</th><th>MAPI</th><th>MB SERVICES</th><th>TRANSPORT SERVICES</th><th>State</th></tr></thead>
+		<tbody>
+		<tr><td class="text-center">PWN01262</td><td>COS</td><td>CLient Access</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
+		<tr><td class="text-center">PWN00514</td><td>PGH</td><td>Mailbox</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Everything's Fine!" class="text-success"><i class="fa fa-check"></i></span></td></tr>
+		<tr><td class="text-center">PWN60020</td><td>PGH</td><td>HUb Transport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Check!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>
+		</tbody></table>
+		</div>
+		</div>
+		</div>
+		<div class="widget">
+		</div>
+		</div>
+		</div>
+		</div> -->
+	
+		
+		
+
+
+      </div><!-- End Page Content -->
+    </div><!-- End Content Wrapper -->
+  </div><!-- End Page Wrapper -->
+  
+</body>
+</html>
