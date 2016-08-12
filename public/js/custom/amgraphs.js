@@ -7,7 +7,7 @@ var chart = AmCharts.makeChart("amgraph", {
     "dataProvider": chartData,
     "valueAxes": [{
         "position": "left",
-        "title": "SYSTEM LOAD FOR prh00939"
+        "title": "SYSTEM LOAD FOR Server"
     }],
     "graphs": [{
         "id": "g1",
