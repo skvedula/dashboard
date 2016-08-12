@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Dash">
 <head>
-  
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" > 
   <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="css/amcharts.css">
@@ -13,58 +13,246 @@
       <link rel="stylesheet" type="text/css" href="css/main.min.css">
 	    <!-- endbuild -->
   <!-- SCRIPTS -->
-    <script type="text/javascript" src="js/amcharts.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/amcharts.js"></script> 
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+	<script src="https://www.amcharts.com/lib/3/serial.js"></script> <!-- this is for bar graph-->
      <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
 	 <!-- amgraphs-->
 	 <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/serial.js"></script>
 <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/lang/ru.js"></script>
       <script type="text/javascript" src="js/main.min.js"></script> 
-       <!--Donut chart Scripts -->
-	       <script type="text/javascript" src="js/morris/jquery.min.js"></script>
-            <!-- <script type="text/javascript" src="js/morris/morris.js"></script> -->
-	         <script type="text/javascript" src="js/morris/morris.min.js"></script>
-	           <script type="text/javascript" src="js/morris/raphael-min.js"></script>
-              <!-- end -->
-          <!--end-->
-
+      
   <!-- Custom Scripts -->
         <script type="text/javascript" src="js/dashboard.min.js"></script>
-        <script type="text/javascript" src="js/custom/amcharts.js"></script>   
+       <script type="text/javascript" src="js/custom/amcharts1.js"></script> 
+     	<script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+		<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+		<script type="text/javascript" src="js/custom/guage_value.js"></script>
+		<script type="text/javascript" src="js/custom/column_chart.js"></script>
+		<script type="text/javascript" src="js/custom/date_time.js"></script>
+		
 		<script type="text/javascript" src="js/custom/amgraphs.js"></script>
 		<script type="text/javascript" src="js/controller/master-ctrl.js"></script>
-		<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
+ <script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
+ <script type="text/javascript">
  
+//Script written for Notifications toggle for transport Queue - Jatin Passi on 8/4/2016
+
+  $(document).ready(function () {
+    get_json();
+	get_db_imbalance_json();
+	get_db_replication_json();
+	get_cas_json();
+   function get_json() {
+   //window.alert("hello");
+   // $('#tfailure').load();
+   $.ajax({ 
+        type: 'GET', 
+        url: 'http://172.31.49.151:3000/transport_q', 
+        data: { get_param: 'value' }, 
+        success: function (data) { 
+		//window.alert(data.length);
+         if (data.length == 0 )
+         {
+             $("#tsuccess").show();
+			  $("#tfailure").hide();
+			 
+			
+		 }
+		  else {
+     $("#tsuccess").hide();
+	 $("#tfailure").show();
+	 
+  }
+        }
+		
+    });
+	};
+	
+	function get_db_imbalance_json() {
+   //window.alert("hello");
+   // $('#tfailure').load();
+   $.ajax({ 
+        type: 'GET', 
+        url: 'http://172.31.49.151:3000/DatabaseImbalanceData', 
+        data: { get_param: 'value' }, 
+        success: function (data) { 
+		//window.alert(data.length);
+         if (data.length == 0 )
+         {
+             $("#imbalance_success").show();
+			  $("#imbalance_failure").hide();
+			 
+			
+		 }
+		  else {
+     $("#imbalance_success").hide();
+	 $("#imbalance_failure").show();
+	 
+  }
+        }
+		
+    });
+	};
+	
+	function get_db_replication_json() {
+   //window.alert("hello");
+   // $('#tfailure').load();
+   $.ajax({ 
+        type: 'GET', 
+        url: 'http://172.31.49.151:3000/DatabaseReplication', 
+        data: { get_param: 'value' }, 
+        success: function (data) { 
+		//window.alert(data.length);
+         if (data.length == 0 )
+         {
+             $("#replication_success").show();
+			  $("#replication_failure").hide();
+			 
+			
+		 }
+		  else {
+     $("#replication_success").hide();
+	 $("#replication_failure").show();
+	 
+  }
+        }
+		
+    });
+	};
+	
+	function get_cas_json() {
+   //window.alert("hello");
+   // $('#tfailure').load();
+   $.ajax({ 
+        type: 'GET', 
+        url: 'http://172.31.49.151:3000/cas_server', 
+        data: { get_param: 'value' }, 
+        success: function (data) { 
+		//window.alert(data.length);
+         if (data.length == 0 )
+         {
+             $("#cas_success").show();
+			  $("#cas_failure").hide();
+			 
+			
+		 }
+		  else {
+     $("#cas_success").hide();
+	 $("#cas_failure").show();
+	 
+  }
+        }
+		
+    });
+	};
+	setInterval(get_cas_json,2000);
+	setInterval(get_json,2000);
+	setInterval(get_db_imbalance_json,2000);
+	setInterval(get_db_replication_json,2000);
+});
+</script>
     <!-- endbuild --> 
+	<style>
+	
+	#guagechart {
+	width	: 80%;
+	height	: 200px;
+}
+#column_chart {
+	width		: 100%;
+	height		: 435px;
+	font-size	: 11px;
+}	
+
+
+									
+	</style>
 </head>
 
-<body ng-controller="MasterCtrl" ng-init="getTableData()">
+<body ng-controller="MasterCtrl" ng-init="getGuageTableData();TransportTableData();DatabaseImbalanceData(); DatabaseReplication(); cas_server();">
 
   <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
 
-    
+     <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar">
+        <li class="sidebar-main">
+          <a ng-click="toggleSidebar()">
+            DASHBOARD 
+            <span class="menu-icon fa fa-arrows-h"></span>
+          </a>
+        </li>
+        <li class="sidebar-title"><span>NAVIGATION</span></li>
+                <li class="sidebar-list">
+		          <!--<a>Exchange <span class="menu-icon fa fa-wpforms"></span></a>-->
+				  <a href="/exchange#/">Database report <span class="menu-icon fa fa-wpforms"></span></a>
+				  <a href="/exchange_hcheck#/" >Health Check <span class="menu-icon fa fa-wpforms"></span></a>
+                  <a href="https://webtools.web.fedex.com/EmailDomainReport" target="_blank">Email Domain Report <span class="menu-icon fa fa-wpforms"></span></a>     
+		        </li>
+	
+        <!-- <li class="sidebar-list">
+           <a href="#/tables">Iplanet <span class="menu-icon fa fa-table"></span></a>
+         </li>
+      </ul>-->
+    <!--  <div class="sidebar-footer">
+        <div class="col-xs-6">
+          <a href="#" target="_blank">
+            Help
+          </a>
+        </div>
+         <div class="col-xs-6">
+            <a href="#">
+                Query
+            </a>
+        </div>
+      </div>-->
+    </div>
+    <!-- End Sidebar -->
     <div id="content-wrapper">
       <div class="page-content">
 
         <!-- Header Bar -->
-       <nav class="navbar navbar-dark bg-inverse" style="background-color: #E4E2FF;">
-          <div class="col-xs-12">
+		<nav class="navbar navbar-dark bg-inverse" style="background-color: #E4E2FF;">
+          <div class="col-lg-12">
 		 
 		            <ul class="nav nav-pills">
-					 <a class="pull-left"><img src="img/logo2.png"></a>
+					 <a class="pull-left"><img src="img/logosvcs.gif" style="height:41px;width:220px;margin-top:0px;margin-right:-60px; margin-left:-20px"></a>
                       <li class="active"><a data-toggle="pill" href="dashboard">Home</a></li>
-                           <li><a data-toggle="pill" href="exchange">Exchange</a></li>
-                                <li><a data-toggle="pill" href="iplanet">Iplanet</a></li>
-                               <li class="dropdown">
+                           <li><a href="exchange">Exchange</a></li>
+                                <li><a  href="iplanet">Iplanet</a></li>
+								
+<li id="search">
+		
+		<FORM method=GET action="http://www.google.com/search" target="_blank">
+			<TABLE bgcolor="#FFFFFF" align="right"><tr><td>
+			<A HREF=" http://www.google.com/">
+			<IMG SRC="http://www.google.com/logos/Logo_40wht.gif" border="0" ALT="Google" align="absmiddle"></A> 
+			<INPUT TYPE=text name=q size=15 maxlength=150 value="">
+			<INPUT TYPE=hidden name=hl value="en">
+			<button class="btn btn-info" name="btnGoogle" type="submit" id="Submit" VALUE="Search">Search</button>
+			</td></tr></TABLE> 
+		</FORM>	
+<b><span id="date_time"></span>	</b>
+<script type="text/javascript">window.onload = date_time('date_time');</script>	
+
+</li>								
+                                
+                               <!--<li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="dashboard">Reports
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#">Health Check</a></li>
           <li><a href="#">Database</a></li>
-          <li><a href="#">Domain Summary</a></li> 
-          <li><a href="#">Enterprise Email Domain Report</a></li> 
+		  <li><a href="https://webtools.web.fedex.com/EmailDomainReport">Enterprise Email Domain Report</a></li>
         </ul>
-      </li>
+      </li>-->
+	  
                     </ul>
            
             </div>
@@ -78,35 +266,343 @@
 
         <!-- Main Content -->
         <div class="ui-view">
-		<div class="col-lg-12"><br> 
-         <p>prh00939.prod</p>		
-        <div id="amgraph"></div>  <!-- AM graphs -->
-        </div>
-		<div class="row-lg-6">
-		<div class="col-lg-12">
-		
-		<div class="widget">
-		<div class="widget-header ng-binding">
+		<div class="row">
+		<div class="col-lg-7">
+		<b><div class="widget-header ng-binding">
 		<i class="fa fa-tasks" ng-class="icon"></i> 
-		DATABASE REPORT 
-		<div class="pull-right">
-		<a href="#" class="ng-scope">Manage</a>
-		</div></div>
-	
-		<div class="widget-body medium no-padding" ng-class="classes">
+		USER REPORT 
+		</div></b>
+		
+		<div id="column_chart"></div>
+		<!--&nbsp; &nbsp;<b>USER DATABASE</b>-->
+		
+		</div>
+		<div class="col-lg-5">
+		<div id="notification_panel" class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i> Notifications Panel                                             
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+							<!-- TRANSPORT QUEUE NOTIFICATIONS-->
+                               <div id ="tsuccess"class="alert alert-success" role="alert" hidden>
+									
+                                    <i class="fa fa-check-circle-o "></i> Transport Queue is less than 50 for all servers!
+                                    <span class="pull-right text-muted small"><em></em>
+                                    </span>
+                                
+								</div>
+								
+								<div id="tfailure" class="alert alert-danger" role="alert" hidden>
+                                <a href="#myModal" data-toggle="modal" class="list-group-item alert-link">
+                                   <span class="text-success">
+								   <i class="fa fa-exclamation-triangle"></i>
+								   
+								   </span>
+								   Transport Queue More than 50.Click For Details!!
+                                    <span class="pull-right text-muted small"><em></em>
+                                    </span>
+                                </a>
+								</div>
+								<!-- TRANSPORT QUEUE NOTIFICATIONS BUILD END -->
+								
+								<!-- DATABASE IMBALANCE NOTIFICATIONS-->
+                                        <div id ="imbalance_success"class="alert alert-success" role="alert" hidden>
+									
+                                    <i class="fa fa-check-circle-o "></i> All Mailbox databases are currently balanced
+                                    <span class="pull-right text-muted small"><em></em>
+                                    </span>
+                                
+								</div>
+								
+								<div id="imbalance_failure" class="alert alert-danger" role="alert" hidden>
+                                <a href="#myModal2" data-toggle="modal" class="list-group-item alert-link">
+                                    <i class="fa fa-balance-scale"></i> Database Imbalanced.Click For Details!!
+                                    <span class="pull-right text-muted small"><em></em>
+                                    </span>
+                                </a>
+								</div>
+								
+								<!-- DATABASE IMBALANCE NOTIFICATIONS Ends--> 
+								
+								<!-- DATABASE REPLiCATION & CAS Server NOTIFICATIONS-->
+                               <div id ="replication_success"class="alert alert-success" role="alert" hidden>
+									
+                                    <i class="fa fa-check-circle-o "></i> No Replication Issues with Mailbox Databases
+                                    <span class="pull-right text-muted small"><em></em>
+                                    </span>
+                                
+								</div>
+								
+								<div id="replication_failure" class="alert alert-danger" role="alert" hidden>
+                                <a href="#myModal3" data-toggle="modal" class="list-group-item alert-link">
+                                    <i class="fa fa-balance-scale"></i> Database with Replication Issues.Click For Details!!
+                                    <span class="pull-right text-muted small"><em></em>
+                                    </span>
+                                </a>
+								</div>
+								
+								<!-- DATABASE REPLiCATION & CAS Server NOTIFICATIONS ENDS-->
+								
+								<!-- CAS Server NOTIFICATIONS-->
+								<div id ="cas_success"class="alert alert-success" role="alert" hidden>
+									
+                                    <i class="fa fa-check-circle-o "></i> Cas Servers QueueLength is less than 100
+                                    <span class="pull-right text-muted small"><em></em>
+                                    </span>
+                                
+								</div>
+								<div id="cas_failure" class="alert alert-danger" role="alert" hidden>
+                                <a href="#myModal4" data-toggle="modal" class="list-group-item alert-link">
+                                    <i class="fa fa-balance-scale"></i> CAS Servers with ActiveSync Task queue Length greater than 100.Click For Details!!
+                                    <span class="pull-right text-muted small"><em></em>
+                                    </span>
+                                </a>
+								</div>
+								<!-- CAS Server NOTIFICATIONS ENDS-->
+								
+                               
+                                
+                            </div>
+                            <!-- /.list-group -->
+                           
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+					
+					
+		<!-- MODAL FORMS BEGIN -->			
+			<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" >
+    
+      <!--# Modal  for Transport Queue content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Message Count more than 50 !! </h4>
+        </div>
+        <div class="modal-body">
+             <div class="widget">
+		<!--<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		SERVER PERFORMANCE 
+		</div> -->
+		
+		<div class="widget-body large no-padding" ng-class="classes">
 		<div ng-hide="loading" class="widget-content">
 		<div class="table-responsive ng-scope"><table class="table">
 		<tbody>
-		<thead><tr><th>Database Name</th><th>Server</th><th>Database File</th><th>Database Size</th><th>White Space</th><th>Last Full Backup</th><th>No Back-up Since</th><th>State</th></tr></thead>
-		<tr ng-repeat="x in tableData">
-			<td> {{ x.db_name }} </td>
-			<td> {{ x.server }} </td>
-			<td> {{ x.db_file }} </td>
-			<td> {{ x.db_size }} </td>
-			<td> {{ x.whitespace }} </td>
-			<td> {{ x.last_fullbackup }} </td>
-			<td> 0 </td>
-			<!-- <td>{{ x.state}}</td> todo--> 
+		<thead><tr><th>IDENTITY</th><th>Message Count</th><th>NextHopDomain</th><th>DELIVERY TYPE</th><th>Test</th></tr></thead>
+		<tr ng-repeat="y in transportData">
+			<td > {{ y.identity }} </td>
+			<td>{{y.messageCount}}</td>
+			<td> {{ y.NextDomain}} </td>
+			<td> {{ y.deliverytype }} </td>
+			<td id= "id_length"> {{ $index +1 }} </td>
+								
+		</tr>
+		
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		 <!--  <button type="button" class="btn btn-default" ng-click="exportData();">Export</button> -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- TRANSPORT QUEUE MODAL FORM ENDS-->
+  <!-- MODAL FOR DATABASE IMBALANCE-->
+  
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog" >
+    
+      <!--# Modal  for Transport Queue content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Currently Imbalanced DATABASE !! </h4>
+        </div>
+        <div class="modal-body">
+             <div class="widget">
+				
+		<div class="widget-body large no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table">
+		<tbody>
+		<thead><tr><th>INDEX</th><th>DATABASE</th><th>DAG</th><th>CURRENT SERVER</th><th>CORRECT SERVER</th></tr></thead>
+		<tr ng-repeat="d in DatabaseImbalanceData">
+			<td > {{ $index +1 }} </td>
+			<td>{{d.Databse}}</td>
+			<td> {{ d.DAG}} </td>
+			<td> {{ d.CurrentServer }} </td>
+			<td> {{ d.CorrectServer }} </td>
+			
+			
+					
+		</tr>
+		
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		 <!--  <button type="button" class="btn btn-default" ng-click="exportData();">Export</button> -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  <!-- DATABSE IMABALANCE MODAL ENDS -->
+  
+  <!-- DATABASE Replication MODAL Begins -->
+  
+  <div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog modal-lg" >
+    
+      <!--# Modal  for Transport Queue content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">DATABASE With Replication Issues !! </h4>
+        </div>
+        <div class="modal-body large">
+             <div class="widget">
+				
+		<div class="widget-body large no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table"> 
+		<tbody>
+		<thead><tr><th>NAME </th><th>STATUS</th><th>Copyqueuelength</th><th>Replayqueuelength</th><th>Lastinspectedlogtime</th><th>ContentIndexstate</th></tr></thead>
+		<tr ng-repeat="r in DatabaseReplication">
+			
+			<td>{{r.Name1}}</td>
+			<td> {{ r.Status1}} </td>
+			<td> {{ r.Copyqueuelength }} </td>
+			<td> {{ r.Replayqueuelength }} </td>
+			<td>  {{ r.Lastinspectedlogtime }}</td>
+			<td>  {{ r.ContentIndexstate }}</td>
+								
+		</tr>
+		
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		 <!--  <button type="button" class="btn btn-default" ng-click="exportData();">Export</button> -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  
+  <!-- DATABASE Replication MODAL ENDS -->
+  
+  <!-- CAS Server Modal -->
+  
+  
+   <div class="modal fade" id="myModal4" role="dialog">
+    <div class="modal-dialog modal-md" >
+    
+      <!--# Modal  for Transport Queue content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">CAS Server With ActiveSync TaskQueue Length More Than 100 !! </h4>
+        </div>
+        <div class="modal-body large">
+             <div class="widget">
+				
+		<div class="widget-body large no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table"> 
+		<tbody>
+		<thead><tr><th>Index</th><th>NAME </th><th>Reading</th></tr></thead>
+		<tr ng-repeat="cas in cas_server">
+			
+			<td>{{$index + 1}}</td>
+			<td> {{ cas.Server_name}} </td>
+			<td> {{ cas.Reading }} </td>
+			
+								
+		</tr>
+		
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		 <!--  <button type="button" class="btn btn-default" ng-click="exportData();">Export</button> -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- CAS Server Modal Ends -->
+  
+  
+  <!-- MODAL FORM ENDS -->
+		</div>
+		</div>
+		  <!-- Am charts -->
+		<div class="row">		  
+		<div class="col-lg-7">
+		<b><div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		EMAIL DOMAIN REPORT 
+		</div></b>
+		  <div id="chartdiv"></div> <br>
+		  <!--<b> <div id="legenddiv"></div> </b>-->
+	    </div>
+		<div class="col-lg-5">
+		 <!-- <div id="chartdiv2"></div>
+		<b>  <div id="legenddiv1"></div> </b> -->
+		
+					<div id="guagechart"> </div>
+		<b>SERVER PERFORMANCE  </b><i class="fa fa-gear fa-spin" style="font-size:24px"></i>
+		<div class="widget">
+		<!--<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		SERVER PERFORMANCE 
+		</div> -->
+		
+		<div class="widget-body small no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table">
+		<tbody>
+		<thead><tr><th>ServerName</th><th>Server Role</th><th>Free PhysicalMemory</th><th>Available Memory</th><th>CPU Usage</th></tr></thead>
+		<tr ng-repeat="x in guagetableData">
+			<td> {{ x.server_name }} </td>
+			<td>{{x.server_role}}</td>
+			<td> {{ x.free_memory}} GB </td>
+			<td> {{ x.available_memory }} GB </td>
+			<td> {{ x.cpu_usage }}%</td>
+			
 		</tr>
 		</tbody>
 		</table>
@@ -114,54 +610,20 @@
 		</div>
 		</div>
 		</div>
+
+			 </div>
+				</div>
 		</div>
-		</div>	
-           <!-- Am charts -->																								
-		<div class="col-lg-6">
-		  <div id="chartdiv"></div>
-	    </div>
-		<div class="col-lg-6">
-		  <div id="chartdiv2"></div>
-		   	    </div>
-		<!-- <div class="col-lg-4">
-		    <div id="chartdiv3"></div> -->
-		</div>
+         
+		
 	    
-		
-		
-		<div class="row-lg-6">
-		<div class="col-lg-12">
-		<div class="widget" >
-		<div class="widget-header ng-binding">
-		<i class="fa fa-tasks" ng-class="icon"></i> Health Check <div class="pull-right" ><input type="text" placeholder="Search" class="form-control input-sm ng-scope">
-		</div>
-		</div>
-		<div class="widget-body medium no-padding" ng-class="classes">
-		<div ng-hide="loading" class="widget-content">
-		<div class="table-responsive ng-scope">
-		<table class="table">
-		<thead><tr><th class="text-center">SERVER</th><th>SITE</th><th>Role</th><th>DNS</th><th>PING</th><th>MAILFLOW TEST</th><th>MAPI</th><th>MB SERVICES</th><th>TRANSPORT SERVICES</th><th>State</th></tr></thead>
-		<tbody>
-		<tr><td class="text-center">PWN01262</td><td>COS</td><td>CLient Access</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN00514</td><td>PGH</td><td>Mailbox</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Everything's Fine!" class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN60020</td><td>PGH</td><td>HUb Transport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Check!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>
-		</tbody></table>
-		</div>
-		</div>
-		</div>
-		<div class="widget">
-		</div>
-		</div>
-		</div>
-		</div>
-	
-		
-		
 
-
-      </div><!-- End Page Content -->
+		</div><!-- End Page Content -->
     </div><!-- End Content Wrapper -->
   </div><!-- End Page Wrapper -->
+  
+  
+  
   
 </body>
 </html>

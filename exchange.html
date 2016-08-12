@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Dash">
 <head>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" > 
@@ -17,30 +18,71 @@
     <script type="text/javascript" src="js/amcharts.js"></script>
     <script src="https://www.amcharts.com/lib/3/pie.js"></script>
      <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+	 
 	 <!-- amgraphs-->
 	 <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/serial.js"></script>
 <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/lang/ru.js"></script>
       <script type="text/javascript" src="js/main.min.js"></script> 
-       <!--Donut chart Scripts -->
+      
 	       <script type="text/javascript" src="js/morris/jquery.min.js"></script>
-            <script type="text/javascript" src="js/morris/morris.js"></script>
-	         <script type="text/javascript" src="js/morris/morris.min.js"></script>
-	           <script type="text/javascript" src="js/morris/raphael-min.js"></script>
-              <!-- end -->
-          <!--end-->
+           <script type="text/javascript" src="js/morris/raphael-min.js"></script>
+           
 
   <!-- Custom Scripts -->
         <script type="text/javascript" src="js/dashboard.min.js"></script>
         <script type="text/javascript" src="js/custom/amcharts.js"></script>   
 		<script type="text/javascript" src="js/custom/amgraphs.js"></script>
 		<script type="text/javascript" src="js/controller/master-ctrl.js"></script>
- 
+		<script type="text/javascript" src="js/custom/date_time.js"></script>
+		 <!--<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>-->
     <!-- endbuild --> 
+	
 </head>
 
 <body ng-controller="MasterCtrl" ng-init="getTableData()">
 
   <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+  
+  
+  
+  <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar">
+        <li class="sidebar-main">
+          <a ng-click="toggleSidebar()">
+            DASHBOARD 
+            <span class="menu-icon fa fa-arrows-h"></span>
+          </a>
+        </li>
+        <li class="sidebar-title"><span>NAVIGATION</span></li>
+                <li class="sidebar-list">
+		          <!--<a>Exchange <span class="menu-icon fa fa-wpforms"></span></a>-->
+				  <a>Database report <span class="menu-icon fa fa-wpforms"></span></a>
+				  <a href="/exchange_hcheck#/" >Health Check <span class="menu-icon fa fa-wpforms"></span></a>
+                  <a href="https://webtools.web.fedex.com/EmailDomainReport" target="_blank">Email Domain Report <span class="menu-icon fa fa-wpforms"></span></a>     
+		        </li>
+	
+        <!-- <li class="sidebar-list">
+           <a href="#/tables">Iplanet <span class="menu-icon fa fa-table"></span></a>
+         </li>
+      </ul>-->
+    <!--  <div class="sidebar-footer">
+        <div class="col-xs-6">
+          <a href="#" target="_blank">
+            Help
+          </a>
+        </div>
+         <div class="col-xs-6">
+            <a href="#">
+                Query
+            </a>
+        </div>
+      </div>-->
+    </div>
+    <!-- End Sidebar -->
+  
+  
+  
 
     
     <div id="content-wrapper">
@@ -50,20 +92,22 @@
        <nav class="navbar navbar-dark bg-inverse" style="background-color: #E4E2FF;">
           <div class="col-xs-12">
 		            <ul class="nav nav-pills">
-					 <a class="pull-left"><img src="img/logo2.png"></a>
+					 <a class="pull-left"><img src="img/logosvcs.gif" style="height:41px;width:220px;margin-top:0px;margin-right:-60px; margin-left:-20px"></a>
                       <li ><a data-toggle="pill" href="dashboard">Home</a></li>
                            <li class="active"><a data-toggle="pill" href="exchange">Exchange</a></li>
                                 <li><a data-toggle="pill" href="iplanet">Iplanet</a></li>
-                                <li class="dropdown">
+                               <!-- <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="dashboard">Reports
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#">Health Check</a></li>
           <li><a href="#">Database</a></li>
-          <li><a href="#">Domain Summary</a></li> 
+          <li><a href="https://webtools.web.fedex.com/EmailDomainReport">Enterprise Email Domain Report</a></li> 
         </ul>
-      </li>
-                    </ul>
+      </li> -->
+<b><span id="date_time" class="pull-right"></span>	</b>
+<script type="text/javascript">window.onload = date_time('date_time');</script>	
+   </ul>
            
             </div>
 			</nav>
@@ -91,7 +135,9 @@
 		<a href="#" class="ng-scope">Manage</a>
 		</div></div>
 	
-		<div class="widget-body medium no-padding" ng-class="classes">
+		<div class="widget-body medium no-padding" ng-class="classes" style="
+    height: 500px;
+">
 		<div ng-hide="loading" class="widget-content">
 		<div class="table-responsive ng-scope"><table class="table">
 		<tbody>
@@ -114,20 +160,11 @@
 		</div>
 		</div>
 		</div>	
-           <!-- Am charts -->																								
-		<div class="col-lg-6">
-		  <div id="chartdiv"></div>
-	    </div>
-		<div class="col-lg-6">
-		  <div id="chartdiv2"></div>
-		   	    </div>
-		<!-- <div class="col-lg-4">
-		    <div id="chartdiv3"></div> -->
-		</div>
+         </div>
 	    
 		
 		
-		<div class="row-lg-6">
+	<!--	<div class="row-lg-6" id="health-check"> 
 		<div class="col-lg-12">
 		<div class="widget" >
 		<div class="widget-header ng-binding">
@@ -151,7 +188,7 @@
 		</div>
 		</div>
 		</div>
-		</div>
+		</div> -->
 	
 		
 		
