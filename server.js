@@ -66,6 +66,21 @@ app.get('/get_opco_db',function(req,res){
     });      
   });
 });
+
+app.get('/healthcheck_data',function(req,res){
+  pool.getConnection(function(err, connection) {
+    // Use the connection
+    connection.query( 'SELECT * FROM healthcheck_table', function(err, rows, fields) {
+      if (!err) {
+        connection.release();
+        res.send(rows);
+      }
+      else
+        console.log('Error while performing Query.',err);
+    });      
+  });
+});
+
 app.get('/gauge_data',function(req,res){
   pool.getConnection(function(err, connection) {
     // Use the connection

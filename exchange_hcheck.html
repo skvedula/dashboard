@@ -132,34 +132,52 @@
 		<div ng-hide="loading" class="widget-content">
 		<div class="table-responsive ng-scope">
 		<table class="table">
-		<thead><tr><th class="text-center">SERVER</th><th>SITE</th><th>Role</th><th>DNS</th><th>PING</th><th>MAILFLOW TEST</th><th>MAPI</th><th>MB SERVICES</th><th>TRANSPORT SERVICES</th><th>State</th></tr></thead>
-		<tbody>
-		<tr><td class="text-center">PWN01262</td><td>COS</td><td>CLient Access</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN00514</td><td>PGH</td><td>Mailbox</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Everything's Fine!" class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN60020</td><td>PGH</td><td>HUb Transport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Check!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>
-		
-		<tr><td class="text-center">PWN00392</td><td>COS</td><td>ClientAccess, HubTransport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN00391</td><td>COS</td><td>Mailbox</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Everything's Fine!" class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN00393</td><td>COS</td><td>ClientAccess, HubTransport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Check!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>
-		<tr><td class="text-center">PWN00515</td><td>PGH</td><td>CLient Access</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN00500</td><td>PGH</td><td>Mailbox</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Everything's Fine!" class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN00516</td><td>PGH</td><td>ClientAccess, HubTransport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Check!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>
-		
-		
-		<tr><td class="text-center">PWN00517</td><td>COS</td><td>ClientAccess, HubTransport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN00518</td><td>PGH</td><td>ClientAccess, HubTransport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Everything's Fine!" class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN00519</td><td>PGH</td><td>ClientAccess, HubTransport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Everything's Fine!" class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		</tbody></table>
+                        <tbody>
+                        <thead>
+                          <tr>
+                            <th>Server</th>
+                            <th>Site</th>
+                            <th>DNS</th>
+                            <th>Ping</th>
+                            <th>Uptime</th>
+                            <th>Version</th>
+                            <th>Roles</th>
+                            <th>CA_S</th>
+                            <th>HT_S</th>
+                            <th>MB_S</th>
+                            <th>UM_S</th>
+                            <th>T_Q</th>
+                            <th>PF_MOUNTED</th>
+                            <th>MB_MOUNTED</th>
+                            <th>MF_TEST</th>
+                            <th>MAPI_TEST</th>
+                            <th>ERR_DETAILS</th>
+                            <th>WARNING_DETAILS</th>  
+                          </tr>
+                        </thead>
+                        <tr ng-repeat="x in hcheckData">
+                          <td> {{ x.server }} </td>
+                          <td> {{ x.site }} </td>
+                          <td> {{ x.dns }} </td>
+                          <td> {{ x.ping }} </td>
+                          <td> {{ x.uptime }} </td>
+                          <td> {{ x.version }} </td>
+                          <td> {{ x.roles }} </td>
+                          <td> {{ x.cas }} </td>
+                          <td> {{ x.hts }} </td>
+                          <td> {{ x.mbs }} </td>
+                          <td> {{ x.ums }} </td>
+                          <td> {{ x.tq }} </td>
+                          <td> {{ x.pfmounted }} </td>
+                          <td> {{ x.mbmounted }} </td>
+                          <td> {{ x.mftest }} </td>
+                          <td> {{ x.mapitest }} </td>
+                          <td> {{ x.errdetails }} </td>
+                          <td> {{ x.warningdetails }} </td>                                                    
+                          <!-- <td>{{ x.state}}</td> todo--> 
+                        </tr>
+                        </tbody>	
+  </table>
 		</div>
 		</div>
 		</div>

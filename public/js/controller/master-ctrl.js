@@ -46,7 +46,14 @@ function MasterCtrl($http, $scope, $cookieStore, $timeout) {
 	  
       .then(function (response) {$scope.tableData = response.data;});
     }; 
-	
+
+    $scope.getHCheckData = function(){
+      $http.get("http://172.31.49.151:3000/healthcheck_data")
+    //$http.get("http://webtools.fedex.com:3000/dashboard/data")
+    
+      .then(function (response) {$scope.hcheckData = response.data;});
+    }; 	
+
 	$scope.getGuageTableData = function(){
      var update = function() { 
 	  $http.get("http://172.31.49.151:3000/gauge_data")
