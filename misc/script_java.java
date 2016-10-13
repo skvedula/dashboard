@@ -50,52 +50,12 @@ public class IplanetAlerts {
 	      int k = 0;
 		  String a[]=new String[13];
 	      String b[]=new String[13];
-	      String c[]=new String[13];
-	      String d[]=new String[13];
 	      String partition[] = new String[13];
 	      String diskPart[] = new String[13];
 	      BufferedReader br = new BufferedReader(new InputStreamReader(in));
 	      while ((line = br.readLine()) != null) {
 				System.out.println(line);
 				// this is where the output of the code is coming add code here to insert command into SQL
-				if(i%13==0){
-					data = line.replaceAll("[Load Average:]", "");
-				}
-				else{
-					if(i<13){
-						String tmp;
-						tmp = "[part"+String.valueOf(i)+" used%:]";
-						a[i-1] = line.replaceAll(tmp,"");
-						double val = Double.parseDouble(a[i-1]);
-						if(val>60.0){
-							System.out.println(val+"see if this prints");
-							partition[j] = "part"+i;
-							c[j]= Double.toString(val);
-							System.out.println("partition is"+partition[j]);
-							System.out.println("value at"+j+"is"+c[j]);
-							j++;
-						}
-					}
-					else{
-						System.out.println("came to last else");
-						String tmp;
-						tmp = "[part"+String.valueOf(i-13)+" used%:]";
-						b[i-14] = line.replaceAll(tmp,"");
-						double value = Double.parseDouble(b[i-14]);
-						if(value>60.0){
-							System.out.println(value+"see if this prints");
-							diskPart[k] = "part"+i;
-							d[k]= Double.toString(value);
-							System.out.println("partition is"+diskPart[k]);
-							System.out.println("value is"+d[k]);
-							k++;
-						}
-					}
-				}
-				
-        		//res = data.split("\\s+");
-        		i = i +1;
-				//final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 				final String DB_URL = "jdbc:mysql://172.31.49.151/pdb60166?autoReconnect=true&useSSL=false";
 
 				// Database credentials
@@ -103,7 +63,6 @@ public class IplanetAlerts {
 				final String PASS = "pin@123";
 
 				Connection conn = null;
-				//Statement stmt = null;
 				try {
 					// STEP 2: Register JDBC driver
 					Class.forName("com.mysql.jdbc.Driver");
@@ -111,25 +70,84 @@ public class IplanetAlerts {
 					// STEP 3: Open a connection
 					//System.out.println("Connecting to database...");
 					conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				if(i%13==0){
+					data = line.replaceAll("[Load Average:]", "");
+				}
+				else{
+					if(i<13){
+						String tmp,part_num1;
+						part_num1 = "part"+i;
+						tmp = "[part"+String.valueOf(i)+" used%:]";
+						a[i-1] = line.replaceAll(tmp,"");
+						double val = Double.parseDouble(a[i-1]);
+						PreparedStatement prepStmt1 = conn.prepareStatement("UPDATE iplanet_alert SET part_number="+part_num1+",space_used="+val+" where server_name='prh00939'");
+			  			prepStmt1.executeUpdate();
+						// if(val>60.0){
+						// 	System.out.println(val+"see if this prints");
+						// 	partition[j] = "part"+i;
+						// 	c[j]= Double.toString(val);
+						// 	System.out.println("partition is"+partition[j]);
+						// 	System.out.println("value at"+j+"is"+c[j]);
+						// 	j++;
+						// }
+					}
+					else{
+						System.out.println("came to last else");
+						String tmp,part_num2;
+						part_num2 = "part"+i-13;
+						tmp = "[part"+String.valueOf(i-13)+" used%:]";
+						b[i-14] = line.replaceAll(tmp,"");
+						double value = Double.parseDouble(b[i-14]);
+						PreparedStatement prepStmt2 = conn.prepareStatement("UPDATE iplanet_alert SET part_number="+part_num2+",space_used="+value+" where server_name='prh00940'");
+			  			prepStmt2.executeUpdate();						
+						// if(value>60.0){
+						// 	System.out.println(value+"see if this prints");
+						// 	diskPart[k] = "part"+i;
+						// 	d[k]= Double.toString(value);
+						// 	System.out.println("partition is"+diskPart[k]);
+						// 	System.out.println("value is"+d[k]);
+						// 	k++;
+						// }
+					}
+				}
+				
+        		//res = data.split("\\s+");
+        		i = i +1;
+				//final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+				// final String DB_URL = "jdbc:mysql://172.31.49.151/pdb60166?autoReconnect=true&useSSL=false";
+
+				// // Database credentials
+				// final String USER = "pinuser"; // enter correct username and password
+				// final String PASS = "pin@123";
+
+				// Connection conn = null;
+				//Statement stmt = null;
+				// try {
+				// 	// STEP 2: Register JDBC driver
+				// 	Class.forName("com.mysql.jdbc.Driver");
+
+				// 	// STEP 3: Open a connection
+				// 	//System.out.println("Connecting to database...");
+				// 	conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
 					// STEP 4: Execute a query
 					//System.out.println("Creating statement...");
 				
 			  		// .. Correct SQL statement .. //
 					//PreparedStatement prepStmt = null;
-			  		if(i == 13){
+			  		// if(i == 13){
 			  			
-			  			PreparedStatement prepStmt = conn.prepareStatement("UPDATE iplanet_alert SET part_number="+partition[j]+",space_used="+c[j]+" where server_name='prh00939'");
-			  			prepStmt.executeUpdate();
-			        }
-			        else {
-			        	if(i==26){
-			        	//PreparedStatement prepStmt2 = conn.prepareStatement("UPDATE iplanet_cpu SET cpu_load="+data+" where server='prh00940'");
+			  		// 	PreparedStatement prepStmt = conn.prepareStatement("UPDATE iplanet_alert SET part_number="+partition[j]+",space_used="+c[j]+" where server_name='prh00939'");
+			  		// 	prepStmt.executeUpdate();
+			    //     }
+			    //     else {
+			    //     	if(i==26){
+			    //     	//PreparedStatement prepStmt2 = conn.prepareStatement("UPDATE iplanet_cpu SET cpu_load="+data+" where server='prh00940'");
 		
-			  			PreparedStatement prepStmt1 = conn.prepareStatement("UPDATE iplanet_details SET part_number="+diskPart[k]+",space_used="+d[k]+" where server_name='prh00940'");
-                        prepStmt1.executeUpdate();
-			        	}
-			    	}
+			  		// 	PreparedStatement prepStmt1 = conn.prepareStatement("UPDATE iplanet_details SET part_number="+diskPart[k]+",space_used="+d[k]+" where server_name='prh00940'");
+       //                  prepStmt1.executeUpdate();
+			    //     	}
+			    // 	}
 					 
 					 conn.close();
 				} catch (SQLException se) {
