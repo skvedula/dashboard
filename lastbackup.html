@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Dash">
+<head>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" > 
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  -->
+   <link rel="stylesheet" type="text/css" href="css/tile.css">
+  <script src="/jquery.min.js"></script>
+  <script src="/bootstrap.min.js"></script> 
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="css/amcharts.css">
+  <link rel="stylesheet" type="text/css" href="css/morris.css">
+  <link rel="stylesheet" type="text/css" href="css/amgraphs.css">
+ 
+   <noscript>
+	<h2>JavaScript is disabled! Please enable it for smooth UI experience.</h2>
+
+	<style type="text/css">
+		#page-wrapper { display:none; }
+	</style>
+</noscript>
+  <title>Messaging Dashboard</title>
+  <!-- STYLES -->
+      <link rel="stylesheet" type="text/css" href="css/main.min.css">
+	    <!-- endbuild -->
+  <!-- SCRIPTS -->
+    <script type="text/javascript" src="js/amcharts.js"></script>
+    
+      <script type="text/javascript" src="js/main.min.js"></script> 
+      
+	       <script type="text/javascript" src="js/morris/jquery.min.js"></script>
+           <script type="text/javascript" src="js/morris/raphael-min.js"></script>
+           
+
+  <!-- Custom Scripts -->
+        <script type="text/javascript" src="js/dashboard.min.js"></script>
+        <script type="text/javascript" src="js/custom/amcharts.js"></script>   
+		<script type="text/javascript" src="js/custom/amgraphs.js"></script>
+		<script type="text/javascript" src="js/controller/master-ctrl.js"></script>
+		<script type="text/javascript" src="js/custom/date_time.js"></script>
+		 <!--<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>-->
+		 <script>
+		 $(document).ready(function () {
+    get_space();
+	get_fullbackup();
+	
+   function get_space() {
+   
+   $.ajax({ 
+        type: 'GET', 
+        url: 'http://webtools.intranet.fedex.com:3000/lowdiskspace1', 
+        data: { get_param: 'value' }, 
+        success: function (data) { 
+		//window.alert(data.length);
+         if (data.length == 0 )
+         {
+             $("#space_success").show();
+			  $("#space_error").hide();
+			 
+			
+		 }
+		  else {
+     $("#space_success").hide();
+	 $("#space_error").show();
+	 
+  }
+        }
+		
+    });
+	};
+	
+	function get_fullbackup() {
+   
+   $.ajax({ 
+        type: 'GET', 
+        url: 'http://webtools.intranet.fedex.com:3000/lastfullbackup1', 
+        data: { get_param: 'value' }, 
+        success: function (data) { 
+		//window.alert(data.length);
+         if (data.length == 0 )
+         {
+             $("#backup_success").show();
+			  $("#backup_error").hide();
+			 
+			
+		 }
+		  else {
+     $("#backup_success").hide();
+	 $("#backup_error").show();
+	 
+  }
+        }
+		
+    });
+	};
+
+	setInterval(get_space,60000);
+	setInterval(get_fullbackup,60000);
+});
+		 
+		 
+		 </script>
+    <!-- endbuild --> 
+	
+</head>
+
+<body ng-controller="MasterCtrl" ng-init="getTableData(); lastfullbackup(); lowdiskspace(); error_table();">
+
+  <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+  
+  
+  
+  <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar">
+        <li class="sidebar-main">
+          <a ng-click="toggleSidebar()">
+            DASHBOARD 
+            <span class="menu-icon fa fa-arrows-h"></span>
+          </a>
+        </li>
+        <li class="sidebar-title"><span>REPORTS</span></li>
+                <li class="sidebar-list">
+		          <!--<a>Exchange <span class="menu-icon fa fa-wpforms"></span></a>-->
+				  <a href="/exchange">Database report <span class="menu-icon fa fa-wpforms"></span></a>
+				  <a href="/exchange_hcheck#/" >Health Check <span class="menu-icon fa fa-wpforms"></span></a>
+                  <a href="/email_domain#/">Email Domain Report <span class="menu-icon fa fa-wpforms"></span></a>     
+		        </li>
+	
+        <!-- <li class="sidebar-list">
+           <a href="#/tables">Iplanet <span class="menu-icon fa fa-table"></span></a>
+         </li>
+      </ul>-->
+    <!--  <div class="sidebar-footer">
+        <div class="col-xs-6">
+          <a href="#" target="_blank">
+            Help
+          </a>
+        </div>
+         <div class="col-xs-6">
+            <a href="#">
+                Query
+            </a>
+        </div>
+      </div>-->
+    </div>
+    <!-- End Sidebar -->
+  
+  
+  
+
+    
+    <div id="content-wrapper">
+      <div class="page-content">
+
+        <!-- Header Bar -->
+       <nav class="navbar navbar-dark bg-inverse" style="background-color: #ffffff;">
+          
+		            <ul class="nav nav-pills">
+					<a class="pull-left"><img src="img/logosvcs.gif" style="height:50px;width:140px;margin-top:0px;margin-right:-60px; margin-left:-5px"></a>
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+					 <!-- <a class="pull-left"><img src="img/logosvcs.gif" style="height:41px;width:150px;margin-top:0px;margin-right:-60px; margin-left:-5px"></a>
+						<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li> -->
+                      <li ><a href="dashboard">Home</a></li>
+                          <!-- <li ><a href="exchange">Exchange</a></li> -->
+                                <li><a href="iplanet">Iplanet</a></li>
+								<li class="active"><a data-toggle="pill" href="lastfullbackup">LastFullBackup</a></li>
+								<br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a  href="#myModal" data-toggle="modal" style="color:#fff;"><span  tooltip="Check! Errors while fetching information" class="text-danger ng-scope ""><i class="fa fa-warning fa-2x"></i></span></a>
+                               <!-- <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="dashboard">Reports
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Health Check</a></li>
+          <li><a href="#">Database</a></li>
+          <li><a href="https://webtools.web.fedex.com/EmailDomainReport">Enterprise Email Domain Report</a></li> 
+        </ul>
+      </li> -->
+<b><span id="date_time" class="pull-right"></span>	</b>
+<script type="text/javascript">window.onload = date_time('date_time');</script>	
+   </ul>
+           
+
+			</nav>
+			
+			
+          
+
+        
+        <!-- End Header Bar -->
+
+        <!-- Main Content -->
+        <div class="ui-view">
+		<!--<div class="col-lg-12"><br> 
+         <p>prh00939.prod</p>		
+        <div id="amgraph"></div>  <!-- AM graphs should be deleted from this Exchange page when tool is Finalised -->
+       <div class="row-lg-12">
+		<div class="row-lg-6">
+		<div class="col-lg-12">
+		
+		<div class="widget" space="space_error" hidden>
+		<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		 LOW DISKSPACE REPORT
+		<!--<div class="pull-right">
+		<a href="#" class="ng-scope">Manage</a>
+		</div>-->
+				</div>
+	
+		<div class="widget-body medium no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table">
+		<tbody>
+		<thead><tr><th>Server Name</th><th>Drive Size</th><th>FreeSpace</th><th>FreeSpace(%)</th><th>Device ID</th><th>Volume Name</th></tr></thead>
+		<tr ng-repeat="x in lowdiskspace">
+			<td> {{ x.server_name }} </td>
+			<td> {{ x.size }} GB</td>
+			<td> {{ x.freespace }} GB</td>
+			<td> {{ x.freespacepercent }} %</td>
+			<td> {{ x.deviceid }} </td>
+			<td> {{ x.volumename }} </td>
+			<!-- <td>{{ x.state}}</td> todo--> 
+		</tr>
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class="widget"id="space_success" hidden >
+		<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		 LOW DISKSPACE REPORT
+		<!--<div class="pull-right">
+		<a href="#" class="ng-scope">Manage</a>
+		</div>-->
+				</div>
+	
+		<div class="widget-body medium no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table">
+		<tbody>
+		 <tr><p style="margin-left:300px; margin-top:100px; z-index:-1;"><b>NO SERVER WITH LOW DISKSPACE FOUND IN THE ENVIRONMENT <i class="fa fa-refresh fa-spin fa-2x fa-fw "></i></b></p> </tr>
+		</tbody>
+		
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+
+		
+		
+		</div>
+		<!-- MODAL FORMS BEGIN -->			
+			<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" >
+    
+      <!--# Modal  for Transport Queue content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Check! Error While Fetching Information On these Servers.  </h4>
+        </div>
+        <div class="modal-body">
+             <div class="widget">
+		<!--<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		SERVER PERFORMANCE 
+		</div> -->
+		
+		<div class="widget-body large no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table">
+		<tbody>
+		<thead><tr><th>Server Name</th><th>Error</th><th>Service Check Failed</th></tr></thead>
+		<tr ng-repeat="y in error_table">
+			<td > {{ y.server_name }} </td>
+			<td>{{y.error}}</td>
+			<td>{{y.service_failed}}</td>
+			<!--<td id= "id_length"> {{ $index +1 }} </td> -->
+								
+		</tr>
+		
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		 <!--  <button type="button" class="btn btn-default" ng-click="exportData();">Export</button> -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- ModalEnds -->
+		
+		</div>	
+		<div class="row-lg-6">
+		<div class="col-lg-12">
+		
+		<div class="widget" id="backup_error" hidden>
+		<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		 LASTFULLBACKUP REPORT
+		<!--<div class="pull-right">
+		<a href="#" class="ng-scope">Manage</a>
+		</div>--></div>
+	
+		<div class="widget-body medium no-padding" ng-class="classes" >
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table">
+		<tbody>
+		<thead><tr><th>Database Name</th><th>LastFullBackup</th><th>Servers</th><th>Database Copies</th><th>Activation Preference</th><th>DAG</th><th>BackupInProgress</th><th>No Back-up Since(DAYS)</th></tr></thead>
+		<tr ng-repeat="x in lastfullbackup | orderBy:'-days'">
+			<td> {{ x.mbx_name }} </td>
+			<td> {{ x.lastbackup }} </td>
+			<td> {{ x.servers }} </td>
+			<td> {{ x.DatabaseCopies }} </td>
+			<td> {{ x.activationpreference }} </td>
+			<td> {{ x.MasterServerOrAvailabilityGroup }} </td>
+			
+			<td> {{ x.backupinprogress }} </td>
+			<td> {{ x.days }} </td>
+			<!-- <td>{{ x.state}}</td> todo--> 
+		</tr>
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class="widget" id="backup_success" hidden>
+		<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		 LASTFULLBACKUP REPORT
+		<!--<div class="pull-right">
+		<a href="#" class="ng-scope">Manage</a>
+		</div>--></div>
+	
+		<div class="widget-body medium no-padding" ng-class="classes" >
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table">
+		<tbody>
+			<tr><p style="margin-left:300px; margin-top:100px; z-index:-1;"><b>NO SERVER WITH LAST FULLBACKUP DATED MORE THAN 1 DAY  <i class="fa fa-refresh fa-spin fa-2x fa-fw "></i></b></p> </tr>
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+		
+		
+		
+		</div>
+		</div>
+		</div>
+		</div>
+         </div>
+	    
+		
+		
+	<!--	<div class="row-lg-6" id="health-check"> 
+		<div class="col-lg-12">
+		<div class="widget" >
+		<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> Health Check <div class="pull-right" ><input type="text" placeholder="Search" class="form-control input-sm ng-scope">
+		</div>
+		</div>
+		<div class="widget-body medium no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope">
+		<table class="table">
+		<thead><tr><th class="text-center">SERVER</th><th>SITE</th><th>Role</th><th>DNS</th><th>PING</th><th>MAILFLOW TEST</th><th>MAPI</th><th>MB SERVICES</th><th>TRANSPORT SERVICES</th><th>State</th></tr></thead>
+		<tbody>
+		<tr><td class="text-center">PWN01262</td><td>COS</td><td>CLient Access</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
+		<tr><td class="text-center">PWN00514</td><td>PGH</td><td>Mailbox</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Everything's Fine!" class="text-success"><i class="fa fa-check"></i></span></td></tr>
+		<tr><td class="text-center">PWN60020</td><td>PGH</td><td>HUb Transport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Check!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>
+		</tbody></table>
+		</div>
+		</div>
+		</div>
+		<div class="widget">
+		</div>
+		</div>
+		</div>
+		</div> -->
+	
+		
+		
+
+
+      </div><!-- End Page Content -->
+    </div><!-- End Content Wrapper -->
+  </div><!-- End Page Wrapper -->
+  
+</body>
+</html>

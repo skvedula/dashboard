@@ -3,44 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" > 
-  <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
-  <link rel="stylesheet" type="text/css" href="css/amcharts.css">
-  <link rel="stylesheet" type="text/css" href="css/morris.css">
-  <link rel="stylesheet" type="text/css" href="css/amgraphs.css">
-  <link rel="stylesheet" type="text/css" href="css/tile.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" > 
+ <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+   <link rel="stylesheet" type="text/css" href="css/amgraphs.css">
+ <noscript>
+	<h2>JavaScript is DISABLED! Please enable it for smooth UI experience.</h2>
+
+	<style type="text/css">
+		#page-wrapper { display:none; }
+	</style>
+</noscript>
   
-  
-  <title>Messaging Dashboard</title>
+  <title>EAS Performance Dashboard</title>
   <!-- STYLES -->
-      <link rel="stylesheet" type="text/css" href="css/main.min.css">
+       <link rel="stylesheet" type="text/css" href="css/main.min.css">
 	    <!-- endbuild -->
   <!-- SCRIPTS -->
     <script type="text/javascript" src="js/amcharts.js"></script>
     <script src="https://www.amcharts.com/lib/3/pie.js"></script>
      <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+	 
 	 <!-- amgraphs-->
 	 <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/serial.js"></script>
 <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/lang/ru.js"></script>
       <script type="text/javascript" src="js/main.min.js"></script> 
-       <!--Donut chart Scripts -->
+      
 	       <script type="text/javascript" src="js/morris/jquery.min.js"></script>
-            <script type="text/javascript" src="js/morris/morris.js"></script>
-	         <script type="text/javascript" src="js/morris/morris.min.js"></script>
-	           <script type="text/javascript" src="js/morris/raphael-min.js"></script>
-              <!-- end -->
-          <!--end-->
+           <script type="text/javascript" src="js/morris/raphael-min.js"></script>
+           
 
   <!-- Custom Scripts -->
         <script type="text/javascript" src="js/dashboard.min.js"></script>
         <script type="text/javascript" src="js/custom/amcharts.js"></script>   
 		<script type="text/javascript" src="js/custom/amgraphs.js"></script>
+		<script type="text/javascript" src="js/controller/master-ctrl.js"></script>
+    <script src="/dataloader.min.js"></script> 
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	
+	<script>
+
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+	   google.charts.setOnLoadCallback(drawChart1);
+      function drawChart() {
+			 $.get( "/iplanet_cpu", function( data ) { 
+    console.log("data - ", data);
+    var value_mem = data[0]["memory"];
+	value_mem = Number(value_mem);
+	var value_load = data[0]["cpu_load"];
+	value_load = Number(value_load);
+  //window.alert(value_mem);	
+    //window.alert(value_load);	
+			
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Memory', value_mem],
+          ['CPU', value_load]
+          //['Network', 68]
+        ]);
+
+        var options = {
+          width: 400, height: 120,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+        
+       /* setInterval(function() {
+          data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 13000);
+        setInterval(function() {
+          data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 5000);
+        setInterval(function() {
+          data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
+          chart.draw(data, options);
+        }, 26000); */
+     });
+	 }
+
+	 
+	 function drawChart1() {
+			 $.get( "/iplanet_cpu1", function( data ) { 
+    console.log("data - ", data);
+    var value_mem = data[0]["memory"];
+	value_mem = Number(value_mem);
+	var value_load = data[0]["cpu_load"];
+	value_load = Number(value_load);
+  //window.alert(value_mem);	
+    //window.alert(value_load);	
+			
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Memory', value_mem],
+          ['CPU', value_load]
+          //['Network', 68]
+        ]);
+
+        var options = {
+          width: 400, height: 120,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div1'));
+
+        chart.draw(data, options);
+        
+       /* setInterval(function() {
+          data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 13000);
+        setInterval(function() {
+          data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 5000);
+        setInterval(function() {
+          data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
+          chart.draw(data, options);
+        }, 26000); */
+     });
+	 }
+
+
+
+</script>
+
+	
+	
  
     <!-- endbuild --> 
+	
 </head>
 
-<body ng-controller="MasterCtrl"  >
+<body ng-controller="MasterCtrl"  ng-init="getDiskSpace()" >
 
   <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
 
@@ -74,14 +177,18 @@
       <div class="page-content">
 
         <!-- Header Bar -->
-       <nav class="navbar navbar-dark bg-inverse" style="background-color: #E4E2FF;">
-          <div class="col-xs-12">
+       <nav class="navbar navbar-dark bg-inverse"style="background-color: #ffffff" >
+          
 		            <ul class="nav nav-pills">
-					 <a class="pull-left"><img src="img/logosvcs.gif" style="height:41px;width:220px;margin-top:0px;margin-right:-60px; margin-left:-20px"></a>
+					<a class="pull-left"><img src="img/logosvcs.gif" style="height:50px;width:140px;margin-top:0px;margin-right:-60px; margin-left:-5px"></a>
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+					<!-- <a class="pull-left"><img src="img/logosvcs.gif" style="height:41px;width:150px;margin-top:0px;margin-right:-60px; margin-left:-5px"></a>
+						<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li> -->
                       <li><a data-toggle="pill" href="dashboard">Home</a></li>
-                           <li><a data-toggle="pill" href="exchange">Exchange</a></li>
+                           <!--<li><a data-toggle="pill" href="exchange">Exchange</a></li> -->
                                 <li class="active"><a data-toggle="pill" href="iplanet">Iplanet</a></li>
-                                <li class="dropdown">
+								<li ><a data-toggle="pill" href="lastfullbackup">LastFullBackup</a></li>
+                              <!--  <li class="dropdown">
         <!--<a class="dropdown-toggle" data-toggle="dropdown" href="dashboard">Reports
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -92,21 +199,21 @@
       </li>-->
                     </ul>
            
-            </div>
+            
 			</nav>
 			       
         <!-- End Header Bar -->
 
         <!-- Main Content -->
         <div class="ui-view"> 
-		
+		<div class="row-lg-6">
 		<!-- Tiles for Iplanet -->
-		<div class="col-lg-3 col-md-6">
+		<div class="col-lg-3">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-bar-chart fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
 								<strong>
@@ -115,7 +222,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="http://peg.sac.fedex.com/host/prh00939.prod">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -125,19 +232,16 @@
                     </div>
                 </div>
 				
-				<div class="col-lg-3 col-md-6">
-                    <div class="tempStatBox">
-						<div class="tempStat" style="border-color: rgb(234, 232, 116);">20%</div>
-						<span>CPU Consumption</span>
-					</div>
+				<div class="col-lg-3">
+                    
                 </div>
 				
-				<div class="col-lg-3 col-md-6">
+				<div class="col-lg-3 ">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-bar-chart fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">prh00940</div>
@@ -145,7 +249,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="http://peg.sac.fedex.com/host/prh00940.prod">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -155,29 +259,98 @@
                     </div>
                 </div>
 				
-				<div class="col-lg-3 col-md-6">
-                    					<div class="tempStatBox">
-						<div class="tempStat" style="border-color: rgb(250, 96, 61);">85%</div>
-						<span>CPU Consumption</span>
-					</div>
+				<div class="col-lg-3 ">
+                    					
                 </div>
 				</strong>
-			
-		<div class="col-lg-12"><br><br> 
-         <p>prh00939.prod</p>		
-        <div id="amgraph"></div>  <!-- AM graphs -->
+			</div>
+		<div class="col-lg-4"><br><br> 
+         
+				<div id="notification_panel" class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i><b>Server Name: PRH00939</b>                                             
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+        <div id="chart_div" ></div>  <!-- AM graphs -->
         </div>
-		
-           <!-- Am charts -->																								
-		<div class="col-lg-6">
-		  <div id="chartdiv"></div>
-	    </div>
-		<div class="col-lg-6">
-		  <div id="chartdiv2"></div>
-		   	    </div>
-		<!-- <div class="col-lg-4">
-		    <div id="chartdiv3"></div> -->
 		</div>
+		</div>
+		</div>
+		<div class="col-lg-2">
+		</div>
+		<div class="col-lg-4"><br><br> 
+         
+				<div id="notification_panel" class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i><b>Server Name: PRH00940</b>                                             
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+        <div id="chart_div1" ></div>  <!-- AM graphs -->
+        </div>
+		</div>
+		</div>
+		</div>
+          	<div class="col-lg-2">
+					</div>
+		<div class="col-lg-8"><div class="widget">
+		<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		DISKSPACE REPORT 
+		<!--<div class="pull-right">
+		<a href="#" class="ng-scope">Manage</a>
+		</div>--></div>
+	
+		<div class="widget-body medium no-padding" ng-class="classes" style="
+    height: 150px;
+">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table">
+		<tbody>
+			</tbody><thead>
+				<tr>
+				    <th>server</th>
+					<th>part1</th>
+					<th>part2</th>
+					<th>part3</th>
+					<th>part4</th>
+					<th>part5</th>
+					<th>part6</th>
+					<th>part7</th>
+					<th>part8</th>
+					<th>part9</th>
+					<th>part10</th>
+					<th>part11</th>
+					<th>part12</th>
+				</tr>
+			</thead>
+		<tbody><tr ng-repeat="x in diskspace">
+			<td> {{ x.server }} </td>
+			<td> {{ x.part1 }} </td>
+			<td> {{ x.part2 }} </td>
+			<td> {{ x.part3 }} </td>
+			<td> {{ x.part4 }} </td>
+			<td> {{ x.part5 }} </td>
+			<td> {{ x.part6 }} </td>
+			<td> {{ x.part7 }} </td>
+			<td> {{ x.part8 }} </td>
+			<td> {{ x.part9 }} </td>
+			<td> {{ x.part10 }} </td>
+			<td> {{ x.part11 }} </td>
+			<td> {{ x.part12 }} </td>
+			
+		</tr>
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div></div>
+		   	    </div>
+		
 	    
 		 </div><!-- End Page Content -->
     </div><!-- End Content Wrapper -->

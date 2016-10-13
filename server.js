@@ -25,10 +25,100 @@ app.get('/',function(req,res){
 app.get('/dashboard',function(req,res){
   res.sendFile(path.join(__dirname+'/dashboard.html'));
 });
+app.get('/dashboard_UI',function(req,res){
+  res.sendFile(path.join(__dirname+'/dashboard_UI.html'));
+});
+app.get('/dashboard_UI1',function(req,res){
+  res.sendFile(path.join(__dirname+'/dashboard_UI1.html'));
+});
+
+app.get('/jquery.min.js',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/js/jquery.min.js'));
+});
+
+app.get('/bootstrap.min.js',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/js/bootstrap.min.js'));
+});
+
+app.get('/dataloader.min.js',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/js/dataloader.min.js'));
+});
+
+app.get('/pie.js',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/js/custom/pie.js'));
+});
+
+app.get('/serial.js',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/js/custom/serial.js'));
+});
+
+app.get('/light.js',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/js/custom/light.js'));
+});
+
+app.get('/serial2.js',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/js/custom/amgraphs/serial.js'));
+});
+
+app.get('/ru.js',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/js/custom/amgraphs/ru.js'));
+});
+
+app.get('/unresponsive_hubcas',function(req,res){
+	pool.getConnection(function(err, connection) {
+	connection.query('SELECT * from unresponsive_hubcas', function(err, rows, fields) {
+	  if (!err) {
+		  connection.release();
+	  	res.send(rows);
+	  }
+	  else
+	    console.log('Error while performing Query.');
+	});
+});
+});
+
+app.get('/iplanet_cpu',function(req,res){
+	pool.getConnection(function(err, connection) {
+	connection.query('SELECT server,memory,cpu_load from iplanet_details where server="prh00939"', function(err, rows, fields) {
+	  if (!err) {
+		  connection.release();
+	  	res.send(rows);
+	  }
+	  else
+	    console.log('Error while performing Query.');
+	});
+});
+});
+
+app.get('/iplanet_cpu1',function(req,res){
+	pool.getConnection(function(err, connection) {
+	connection.query('SELECT server,memory,cpu_load from iplanet_details where server="prh00940"', function(err, rows, fields) {
+	  if (!err) {
+		  connection.release();
+	  	res.send(rows);
+	  }
+	  else
+	    console.log('Error while performing Query.');
+	});
+});
+});
 
 app.get('/dashboard/data',function(req,res){
 	pool.getConnection(function(err, connection) {
 	connection.query('SELECT * from exchangedbreport', function(err, rows, fields) {
+	  if (!err) {
+		  connection.release();
+	  	res.send(rows);
+	  }
+	  else
+	    console.log('Error while performing Query.');
+	});
+});
+});
+
+app.get('/iplanet/diskspace',function(req,res){
+	pool.getConnection(function(err, connection) {
+	connection.query('SELECT server,part1,part2,part3,part4,part5,part6,part7,part8,part9,part10,part11,part12 from iplanet_details', function(err, rows, fields) {
 	  if (!err) {
 		  connection.release();
 	  	res.send(rows);
@@ -66,21 +156,6 @@ app.get('/get_opco_db',function(req,res){
     });      
   });
 });
-
-app.get('/healthcheck_data',function(req,res){
-  pool.getConnection(function(err, connection) {
-    // Use the connection
-    connection.query( 'SELECT * FROM healthcheck_table', function(err, rows, fields) {
-      if (!err) {
-        connection.release();
-        res.send(rows);
-      }
-      else
-        console.log('Error while performing Query.',err);
-    });      
-  });
-});
-
 app.get('/gauge_data',function(req,res){
   pool.getConnection(function(err, connection) {
     // Use the connection
@@ -150,6 +225,47 @@ app.get('/cas_server',function(req,res){
     });      
   });
 });
+
+app.get('/services_health',function(req,res){
+  pool.getConnection(function(err, connection) {
+    // Use the connection
+    connection.query( 'SELECT * FROM services_health', function(err, rows, fields) {
+      if (!err) {
+        connection.release();
+        res.send(rows);
+      }
+      else
+        console.log('Error while performing Query.',err);
+    });      
+  });
+});
+
+app.get('/mailbox_replication',function(req,res){
+  pool.getConnection(function(err, connection) {
+    // Use the connection
+    connection.query( 'SELECT * FROM mbx_replication', function(err, rows, fields) {
+      if (!err) {
+        connection.release();
+        res.send(rows);
+      }
+      else
+        console.log('Error while performing Query.',err);
+    });      
+  });
+});
+
+app.get('/health_check',function(req,res){
+	pool.getConnection(function(err, connection) {
+	connection.query('SELECT * from test_health', function(err, rows, fields) {
+	  if (!err) {
+		  connection.release();
+	  	res.send(rows);
+	  }
+	  else
+	    console.log('Error while performing Query.');
+	});
+});
+});
 app.get('/get_gauge_data',function(req,res){
   pool.getConnection(function(err, connection) {
     // Use the connection
@@ -163,13 +279,60 @@ app.get('/get_gauge_data',function(req,res){
     });      
   });
 });
+app.get('/lastfullbackup1',function(req,res){
+  pool.getConnection(function(err, connection) {
+    // Use the connection
+    connection.query( 'SELECT * FROM lastfullbackup1', function(err, rows, fields) {
+      if (!err) {
+        connection.release();
+     res.send(rows).val;
+	 }
+      else
+        console.log('Error while performing Query.');
+    });      
+  });
+});
+
+app.get('/lowdiskspace1',function(req,res){
+  pool.getConnection(function(err, connection) {
+    // Use the connection
+    connection.query( 'SELECT * FROM lowdiskspace', function(err, rows, fields) {
+      if (!err) {
+        connection.release();
+     res.send(rows).val;
+	 }
+      else
+        console.log('Error while performing Query.');
+    });
+  });
+});
+
+app.get('/error_table',function(req,res){
+  pool.getConnection(function(err, connection) {
+    // Use the connection
+    connection.query( 'SELECT * FROM error_table', function(err, rows, fields) {
+      if (!err) {
+        connection.release();
+     res.send(rows).val;
+	 }
+      else
+        console.log('Error while performing Query.');
+    });      
+  });
+});
 
 app.get('/exchange',function(req,res){
   res.sendFile(path.join(__dirname+'/exchange.html'));
 });
-
+app.get('/lastfullbackup',function(req,res){
+  res.sendFile(path.join(__dirname+'/lastbackup.html'));
+});
 app.get('/exchange_hcheck',function(req,res){
   res.sendFile(path.join(__dirname+'/exchange_hcheck.html'));
+});
+
+app.get('/email_domain',function(req,res){
+  res.sendFile(path.join(__dirname+'/email_domain.html'));
 });
 
 
@@ -182,6 +345,9 @@ app.get('/json', function (req, res) {
 
 app.get('/iplanet',function(req,res){
   res.sendFile(path.join(__dirname+'/iplanet.html'));
+});
+app.get('/iplanet_940',function(req,res){
+  res.sendFile(path.join(__dirname+'/iplanet_940.html'));
 });
 
 app.listen(3000);

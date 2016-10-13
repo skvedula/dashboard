@@ -6,7 +6,7 @@
   "sequencedAnimation": false,
    "fontSize": 12,
    "dataLoader": {
-    "url": "http://qwn00079.tcorp.test-ds.fedex.com:3000/json",
+    "url": "http://webtools.intranet.fedex.com:3000/json",
     "format": "json"
   },
     "valueField": "value",
@@ -30,7 +30,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
   "sequencedAnimation": false,
    "fontSize": 12,
   "dataLoader": {
-    "url": "http://172.31.49.151:3000/get_email_data",
+    "url": "http://webtools.intranet.fedex.com:3000/get_email_data",
     "format": "json"
   },
   "valueField": "value",
@@ -53,7 +53,7 @@ var chart2 = AmCharts.makeChart( "chartdiv2", {
   "sequencedAnimation": false,
    "fontSize": 12,
    "dataLoader": {
-    "url": "http://172.31.49.151:3000/get_opco_db",
+    "url": "http://webtools.intranet.fedex.com:3000/get_opco_db",
     "format": "json"
   },
   "valueField": "value",

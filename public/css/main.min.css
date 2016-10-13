@@ -1658,6 +1658,11 @@ input[type=date].input-sm, input[type=datetime-local].input-sm, input[type=month
 input[type=date].input-lg, input[type=datetime-local].input-lg, input[type=month].input-lg, input[type=time].input-lg {
     line-height: 46px;
 }
+
+#header_bg {
+		background-image: url(img/header-background.gif);
+}
+
 .form-group {
     margin-bottom: 15px;
 }
@@ -2645,6 +2650,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
     color: #fff;
     background-color: #428bca;
+	/*background-color: #8c1aff;*/
 }
 .nav-stacked>li {
     float: none;
@@ -2702,6 +2708,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
 .navbar {
     position: relative;
     min-height: 50px;
@@ -6151,6 +6158,7 @@ ul.sidebar .sidebar-list .menu-icon {
 }
 .widget .widget-body {
     padding: 20px;
+	overflow-x: auto;
 }
 .widget .widget-body table thead {
     background: #fafafa;
@@ -8119,7 +8127,7 @@ select[multiple].input-lg, textarea.input-lg {
 }
 }.btn {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 4px 4px;
     margin-bottom: 0;
     font-size: 14px;
     font-weight: 400;
@@ -8224,8 +8232,8 @@ select[multiple].input-lg, textarea.input-lg {
 }
 .btn-info {
     color: #fff;
-    background-color: #5bc0de;
-    border-color: #46b8da;
+    background-color: #999999;
+    border-color: #999999;
 }
 .btn-info.active, .btn-info:active, .btn-info:focus, .btn-info:hover, .open>.dropdown-toggle.btn-info {
     color: #fff;
@@ -8860,6 +8868,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
     color: #fff;
     background-color: #428bca;
+	/*background-color: #8c1aff;*/
 }
 .nav-stacked>li {
     float: none;
@@ -10095,8 +10104,8 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
     border-color: #ddd;
 }
 .panel-default>.panel-heading {
-    color: #333;
-    background-color: #f5f5f5;
+    color: white;
+    background-color: #31708f;
     border-color: #ddd;
 }
 .panel-default>.panel-heading+.panel-collapse>.panel-body {
@@ -10114,8 +10123,8 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
 }
 .panel-primary>.panel-heading {
     color: #fff;
-    background-color: #E66D69;
-    border-color: #FF5C29;
+    background-color: #31708f;
+    border-color: black;
 }
 .panel-primary>.panel-heading+.panel-collapse>.panel-body {
     border-top-color: #428bca;
@@ -12240,6 +12249,7 @@ div.input-mask {
 }
 #page-wrapper:not(.open) ul.sidebar .sidebar-title.separator, .sidebar-footer, ul.sidebar .sidebar-list a:hover, ul.sidebar .sidebar-main a {
     background: #2d3e63;
+	/*background: #999999;*/
 }
 ul.sidebar {
     position: absolute;
@@ -12273,7 +12283,7 @@ ul.sidebar .sidebar-main .menu-icon {
     line-height: 60px;
 }
 ul.sidebar .sidebar-title {
-    color: #738bc0;
+    color: white;
     font-size: 12px;
     height: 35px;
     line-height: 40px;
@@ -12399,7 +12409,7 @@ form#searchbox_demo {
 }
 .widget .widget-body.medium {
     height: 250px;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 .widget .widget-body.small {
     height: 150px;
@@ -12447,3 +12457,34 @@ form#searchbox_demo {
    margin-right: 0px !important;
    margin-top: 0px !important;
 }
+.passStatus{
+	background: #4AC948;
+	color: white;
+}
+.failStatus{
+	background: red;
+	color: white;
+}
+.lessValue{
+	background: #ffff00;
+
+}
+div.col-lg-7{
+	background: white;
+}
+/* Exchage Table legend*/
+
+.xchange-green {
+    background: #4AC948;
+}
+
+.xchange-red {
+    background: red;
+}
+
+.xchange-orange {
+    background: orange;
+}
+
+.xchange-grey {
+    background: grey;

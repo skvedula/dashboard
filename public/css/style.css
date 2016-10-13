@@ -1,0 +1,19 @@
+
+#radar {
+ 
+ 
+  padding: 14px;
+  border-radius: 100%;
+  display: block;
+  padding-left:170px;
+  padding-top:160px
+  
+  
+}
+
+canvas {
+  background: radial-gradient(#222, #111);
+  border-radius: 100%;
+  display: block;
+position: absolute;
+}

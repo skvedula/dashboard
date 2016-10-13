@@ -2,12 +2,12 @@ var chartData = generateChartData();
 
 var chart = AmCharts.makeChart("amgraph", {
     "type": "serial",
-    "theme": "dark",
+    "theme": "light",
     "marginRight": 80,
     "dataProvider": chartData,
     "valueAxes": [{
         "position": "left",
-        "title": "SYSTEM LOAD FOR Server"
+        "title": "SYSTEM LOAD FOR prh00939"
     }],
     "graphs": [{
         "id": "g1",
