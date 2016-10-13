@@ -310,7 +310,7 @@ app.get('/lowdiskspace1',function(req,res){
 app.get('/error_table',function(req,res){
   pool.getConnection(function(err, connection) {
     // Use the connection
-    connection.query( 'SELECT * FROM error_table', function(err, rows, fields) {
+    connection.query( 'SELECT * FROM error_table WHERE space_used > 80 ORDER BY space_used ASC', function(err, rows, fields) {
       if (!err) {
         connection.release();
      res.send(rows).val;
