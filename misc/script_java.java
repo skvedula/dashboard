@@ -76,11 +76,11 @@ public class IplanetAlerts {
 				else{
 					if(i<13){
 						String tmp,part_num1;
-						part_num1 = "part"+i;
+						part_num1 = "part"+String.valueOf(i);
 						tmp = "[part"+String.valueOf(i)+" used%:]";
 						a[i-1] = line.replaceAll(tmp,"");
-						double val = Double.parseDouble(a[i-1]);
-						PreparedStatement prepStmt1 = conn.prepareStatement("UPDATE iplanet_alert SET part_number="+part_num1+",space_used="+val+" where server_name='prh00939'");
+						double val1 = Double.parseDouble(a[i-1]);
+						PreparedStatement prepStmt1 = conn.prepareStatement("UPDATE iplanet_alert SET space_used="+val1+" where server_name='prh00939' and part_number='"+part_num1+"'");
 			  			prepStmt1.executeUpdate();
 						// if(val>60.0){
 						// 	System.out.println(val+"see if this prints");
@@ -94,11 +94,11 @@ public class IplanetAlerts {
 					else{
 						System.out.println("came to last else");
 						String tmp,part_num2;
-						part_num2 = "part"+i-13;
+						part_num2 = "part"+String.valueOf(i-13);
 						tmp = "[part"+String.valueOf(i-13)+" used%:]";
 						b[i-14] = line.replaceAll(tmp,"");
-						double value = Double.parseDouble(b[i-14]);
-						PreparedStatement prepStmt2 = conn.prepareStatement("UPDATE iplanet_alert SET part_number="+part_num2+",space_used="+value+" where server_name='prh00940'");
+						double val2 = Double.parseDouble(b[i-14]);
+						PreparedStatement prepStmt2 = conn.prepareStatement("UPDATE iplanet_alert SET space_used="+val2+" where server_name='prh00940' and part_number='"+part_num2+"'");
 			  			prepStmt2.executeUpdate();						
 						// if(value>60.0){
 						// 	System.out.println(value+"see if this prints");
