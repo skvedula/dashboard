@@ -76,7 +76,7 @@ public class IplanetAlerts {
 				else{
 					if(i<13){
 						String tmp,part_num1;
-						part_num1 = "part"+i;
+						part_num1 = "part"+String.valueOf(i);
 						tmp = "part"+String.valueOf(i)+" used%:";
 						a[i-1] = line.replaceAll(tmp,"");
 						double val = Double.parseDouble(a[i-1]);
@@ -94,7 +94,7 @@ public class IplanetAlerts {
 					else{
 						System.out.println("came to last else");
 						String tmp,part_num2;
-						part_num2 = "part"+i-13;
+						part_num2 = "part"+String.valueOf(i-13);
 						tmp = "part"+String.valueOf(i-13)+" used%:";
 						b[i-14] = line.replaceAll(tmp,"");
 						double value = Double.parseDouble(b[i-14]);
