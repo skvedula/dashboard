@@ -26,9 +26,11 @@ function callb(error, stdout, stderr) {
 	body = body + '</table>';
 }
 exec("cat sample1.txt > output", callb);// **change this commad to ssh perl command
-exec("cat sample2.txt > output", callb);// **change this commad to ssh perl command
 setTimeout(function() {
-  body = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="main.css"></head><body>' + body + '</table></body></html>';
-  console.log(body);
+	exec("cat sample2.txt > output", callb);// **change this commad to ssh perl command
+	setTimeout(function() {
+	  body = '<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="main.css"></head><body>' + body + '</table></body></html>';
+	  console.log(body);
+	}, 1000);
 }, 1000);
 // '<!DOCTYPE html>' + '<html><header>' + '</header><body>' + body + '</table></body></html>';
