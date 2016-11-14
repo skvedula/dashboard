@@ -3,11 +3,18 @@ exec = require('child_process').exec;
 fs = require('fs');
 var child;
 var body = "";
+var idx = 0;
 function callb(error, stdout, stderr) {
 	data = fs.readFileSync('output').toString();
 	data = data.split("\n");
 	timestamp_1 = data[0];
-	body = body + "<h5>" + timestamp_1 + "</h5>";
+	if(idx == 0){
+		body = body + "<h3>Queue totals for prh00939</h3>" + "<h5>" + timestamp_1 + "</h5>";
+		idx = idx +1;
+	}
+	else{
+		body = body + "<h3>Queue totals for prh00940</h3>" + "<h5>" + timestamp_1 + "</h5>";
+	}
 	// console.log(body);
 	table_head_1 = "<table><thead><tr><th>Channel</th><th>Messages</th><th>Size (Mb)</th></tr></thead>";
 	body = body + table_head_1;

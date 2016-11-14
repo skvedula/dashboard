@@ -1,16 +1,16 @@
 Wed Oct 26 16:00:01 GMT 2016
                          Channel  Messages  Size (Mb)
 --------------------------------  --------  ---------
-                      defragment         4        8.0
-                            hold         0        0.0
-                          ims-ms         5        0.0
-                         process         4        0.0
-                       reprocess         3        0.1
+                      defragment         2        8.0
+                            hold         1        0.0
+                          ims-ms         1        0.0
+                         process         3        0.0
+                       reprocess         1        0.1
                         tcp_auth         0        0.0
                     tcp_intranet       657       18.6
                        tcp_local         6        0.1
 --------------------------------  --------  ---------
-                          Totals       679       26.8
+                          Totals       73       6.8
 Filesystem            Size  Used Avail Use% Mounted on
 /dev/mapper/vg01-iplanet--queue
                        26G   16G  8.4G  66% /store/queue
