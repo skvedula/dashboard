@@ -59,6 +59,7 @@ item["last_fullbackup"] = "NULL";}
 	  
       .then(function (response) {$scope.diskspace = response.data;});
     };
+	
 	$scope.getHCheckData = function(){
       //$http.get("http://172.31.49.151:3000/health_check")
 	  $http.get("http://webtools.intranet.fedex.com:3000/health_check")
@@ -209,9 +210,9 @@ item["last_fullbackup"] = "NULL";}
       //$http.get("http://172.31.49.151:3000/cas_server")
 	  $http.get("http://webtools.intranet.fedex.com:3000/lastfullbackup1")
       .then(function (response) {$scope.lastfullbackup = response.data;});
-	  $timeout(lastfullbackup_update, 2000);
+	  $timeout(lastfullbackup_update, 1000);
 	  }
-	  $timeout(lastfullbackup_update, 2000);
+	  $timeout(lastfullbackup_update, 1000);
     };
 	
 	$scope.lowdiskspace = function(){
@@ -223,6 +224,17 @@ item["last_fullbackup"] = "NULL";}
 	  $timeout(lowdiskspace_update, 2000);
 	  }
 	  $timeout(lowdiskspace_update, 2000);
+    };
+	
+	$scope.iplanet_alert = function(){
+      console.log("came here for iplanet_alert server issue");
+	  var iplanet_alert_update = function() {
+      //$http.get("http://172.31.49.151:3000/cas_server")
+	  $http.get("http://webtools.intranet.fedex.com:3000/iplanet_alert")
+      .then(function (response) {$scope.iplanet_alert = response.data;});
+	  $timeout(iplanet_alert_update, 2000);
+	  }
+	  $timeout(iplanet_alert_update, 2000);
     };
 	
 	$scope.error_table = function(){

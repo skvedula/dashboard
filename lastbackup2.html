@@ -44,10 +44,10 @@
 		 <!--<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>-->
 		 <script>
 		 $(document).ready(function () {
-    get_space();
+    //get_space();
 	get_fullbackup();
 	
-   function get_space() {
+   /*function get_space() {
    
    $.ajax({ 
         type: 'GET', 
@@ -70,7 +70,7 @@
         }
 		
     });
-	};
+	}; */
 	
 	function get_fullbackup() {
    
@@ -97,8 +97,8 @@
     });
 	};
 
-	setInterval(get_space,60000);
-	setInterval(get_fullbackup,60000);
+	
+	
 });
 		 
 		 
@@ -107,7 +107,7 @@
 	
 </head>
 
-<body ng-controller="MasterCtrl" ng-init="getTableData(); lastfullbackup(); lowdiskspace(); error_table();">
+<body ng-controller="MasterCtrl" ng-init="getTableData(); lastfullbackup(); error_table();">
 
   <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
   
@@ -166,7 +166,7 @@
 						<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li> -->
                       <li ><a href="dashboard">Home</a></li>
                           <!-- <li ><a href="exchange">Exchange</a></li> -->
-                                <li><a href="">Iplanet</a></li>
+                                <li><a href="iplanet">Iplanet</a></li>
 								<li class="active"><a data-toggle="pill" href="lastfullbackup">LastFullBackup</a></li>
 								<br>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a  href="#myModal" data-toggle="modal" style="color:#fff;"><span  tooltip="Check! Errors while fetching information" class="text-danger ng-scope ""><i class="fa fa-warning fa-2x"></i></span></a>
@@ -198,6 +198,8 @@
          <p>prh00939.prod</p>		
         <div id="amgraph"></div>  <!-- AM graphs should be deleted from this Exchange page when tool is Finalised -->
        <div class="row-lg-12">
+	   
+	   <!--
 		<div class="row-lg-6">
 		<div class="col-lg-12">
 		
@@ -208,7 +210,7 @@
 		<!--<div class="pull-right">
 		<a href="#" class="ng-scope">Manage</a>
 		</div>-->
-				</div>
+			<!--	</div>
 	
 		<div class="widget-body medium no-padding" ng-class="classes">
 		<div ng-hide="loading" class="widget-content">
@@ -223,7 +225,7 @@
 			<td> {{ x.deviceid }} </td>
 			<td> {{ x.volumename }} </td>
 			<!-- <td>{{ x.state}}</td> todo--> 
-		</tr>
+	<!--	</tr>
 		</tbody>
 		</table>
 		</div>
@@ -237,7 +239,7 @@
 		<!--<div class="pull-right">
 		<a href="#" class="ng-scope">Manage</a>
 		</div>-->
-				</div>
+			<!--	</div>
 	
 		<div class="widget-body medium no-padding" ng-class="classes">
 		<div ng-hide="loading" class="widget-content">
@@ -255,11 +257,11 @@
 		
 		
 		</div>
-		<!-- MODAL FORMS BEGIN -->			
+		<!-- MODAL FORMS BEGIN 		
 			<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog" >
     
-      <!--# Modal  for Transport Queue content-->
+      <!--# Modal  for Transport Queue content
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -272,18 +274,18 @@
 		SERVER PERFORMANCE 
 		</div> -->
 		
-		<div class="widget-body large no-padding" ng-class="classes">
+	<!--	<div class="widget-body large no-padding" ng-class="classes">
 		<div ng-hide="loading" class="widget-content">
 		<div class="table-responsive ng-scope"><table class="table">
 		<tbody>
 		<thead><tr><th>Server Name</th><th>Error</th><th>Service Check Failed</th></tr></thead>
-		<tr ng-repeat="y in error_table;">
+		<tr ng-repeat="y in error_table">
 			<td > {{ y.server_name }} </td>
 			<td>{{y.error}}</td>
 			<td>{{y.service_failed}}</td>
 			<!--<td id= "id_length"> {{ $index +1 }} </td> -->
 								
-		</tr>
+		<!--</tr>
 		
 		</tbody>
 		</table>
@@ -294,7 +296,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		 <!--  <button type="button" class="btn btn-default" ng-click="exportData();">Export</button> -->
+		 <!--  <button type="button" class="btn btn-default" ng-click="exportData();">Export</button> 
         </div>
       </div>
       
@@ -302,7 +304,7 @@
   </div>
   <!-- ModalEnds -->
 		
-		</div>	
+	<!--	</div> -->	
 		<div class="row-lg-6">
 		<div class="col-lg-12">
 		
@@ -347,7 +349,7 @@
 		<a href="#" class="ng-scope">Manage</a>
 		</div>-->
 		
-		</div>
+	</div>
 	
 		<div class="widget-body medium no-padding" ng-class="classes" >
 		<div ng-hide="loading" class="widget-content">

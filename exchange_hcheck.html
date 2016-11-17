@@ -99,7 +99,7 @@
 					<!-- <a class="pull-left"><img src="img/logosvcs.gif" style="height:41px;width:220px;margin-top:0px;margin-right:-60px; margin-left:-20px"></a> -->
                       <li ><a data-toggle="pill" href="dashboard">Home</a></li>
                            <!--<li class="active"><a data-toggle="pill" href="exchange">Exchange</a></li> -->
-                                <li><a data-toggle="pill" href="iplanet">Iplanet</a></li>
+                                <li><a data-toggle="pill" href="">Iplanet</a></li>
 								<li ><a data-toggle="pill" href="lastfullbackup">LastFullBackup</a></li>
                                <!-- <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="dashboard">Reports
@@ -126,11 +126,13 @@
 	    
 		
 		
-		<div class="row-lg-6" id="health-check"> 
+		<div class="row-lg-6" id="health-check">  
 		<div class="col-lg-12">
 		<div class="widget" >
 		<div class="widget-header ng-binding">
-		<i class="fa fa-tasks" ng-class="icon"></i> Health Check <div class="pull-right" ><!--<input type="text" placeholder="Search" class="form-control input-sm ng-scope"> -->
+		<i class="fa fa-tasks" ng-class="icon"></i> Health Check <div class="pull-right" >
+		<input type="text" value="Search" ng-model="searchquery" placeholder="Search" class="form-control input-sm ng-scope">
+		
 		</div>
 		</div>
 		<div class="widget-body medium no-padding" ng-class="classes" style="
@@ -160,7 +162,7 @@
                             <th>Mail Flow Test</th>  
                           </tr>
                         </thead>
-                        <tr ng-repeat="x in hcheckData">
+                        <tr ng-repeat="x in hcheckData | filter:searchquery">
                           <td> {{ x.server }} </td>
                           <td> {{ x.site }} </td>
                           <td> {{ x.role }} </td>

@@ -12409,7 +12409,7 @@ form#searchbox_demo {
 }
 .widget .widget-body.medium {
     height: 250px;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 .widget .widget-body.small {
     height: 150px;
@@ -12488,3 +12488,4 @@ div.col-lg-7{
 
 .xchange-grey {
     background: grey;
+}

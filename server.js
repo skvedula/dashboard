@@ -143,6 +143,20 @@ app.get('/get_email_data',function(req,res){
   });
 });
 
+app.get('/iplanet_alert',function(req,res){
+  pool.getConnection(function(err, connection) {
+    // Use the connection
+    connection.query( 'SELECT * FROM iplanet_alert WHERE space_used > 63 ORDER BY space_used ASC', function(err, rows, fields) {
+      if (!err) {
+        connection.release();
+        res.send(rows).val;
+      }
+      else
+        console.log('Error while performing Query.');
+    });      
+  });
+});
+
 app.get('/get_opco_db',function(req,res){
   pool.getConnection(function(err, connection) {
     // Use the connection
@@ -303,14 +317,14 @@ app.get('/lowdiskspace1',function(req,res){
 	 }
       else
         console.log('Error while performing Query.');
-    });
+    });      
   });
 });
 
 app.get('/error_table',function(req,res){
   pool.getConnection(function(err, connection) {
     // Use the connection
-    connection.query( 'SELECT * FROM error_table WHERE space_used > 80 ORDER BY space_used ASC', function(err, rows, fields) {
+    connection.query( 'SELECT * FROM error_table', function(err, rows, fields) {
       if (!err) {
         connection.release();
      res.send(rows).val;
@@ -327,12 +341,19 @@ app.get('/exchange',function(req,res){
 app.get('/lastfullbackup',function(req,res){
   res.sendFile(path.join(__dirname+'/lastbackup.html'));
 });
+app.get('/lastfullbackup2',function(req,res){
+  res.sendFile(path.join(__dirname+'/lastbackup2.html'));
+});
 app.get('/exchange_hcheck',function(req,res){
   res.sendFile(path.join(__dirname+'/exchange_hcheck.html'));
 });
 
 app.get('/email_domain',function(req,res){
   res.sendFile(path.join(__dirname+'/email_domain.html'));
+});
+
+app.get('/queuecounts',function(req,res){
+  res.sendFile(path.join(__dirname+'/queuecounts.html'));
 });
 
 
@@ -345,6 +366,12 @@ app.get('/json', function (req, res) {
 
 app.get('/iplanet',function(req,res){
   res.sendFile(path.join(__dirname+'/iplanet.html'));
+});
+app.get('/peg_939',function(req,res){
+  res.sendFile(path.join(__dirname+'/peg_graph939.html'));
+});
+app.get('/peg_940',function(req,res){
+  res.sendFile(path.join(__dirname+'/peg_graph940.html'));
 });
 app.get('/iplanet_940',function(req,res){
   res.sendFile(path.join(__dirname+'/iplanet_940.html'));

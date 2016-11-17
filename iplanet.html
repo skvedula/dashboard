@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" > 
  <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
    <link rel="stylesheet" type="text/css" href="css/amgraphs.css">
+   <link rel="stylesheet" type="text/css" href="css/tile.css">
  <noscript>
 	<h2>JavaScript is DISABLED! Please enable it for smooth UI experience.</h2>
 
@@ -19,6 +20,8 @@
        <link rel="stylesheet" type="text/css" href="css/main.min.css">
 	    <!-- endbuild -->
   <!-- SCRIPTS -->
+  <script src="/jquery.min.js"></script>
+  <script src="/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/amcharts.js"></script>
     <script src="https://www.amcharts.com/lib/3/pie.js"></script>
      <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
@@ -39,6 +42,37 @@
 		<script type="text/javascript" src="js/controller/master-ctrl.js"></script>
     <script src="/dataloader.min.js"></script> 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
+	 $(document).ready(function () {
+	 get_partition_json();
+	function get_partition_json() {
+  
+   $.ajax({ 
+        type: 'GET', 
+        url: 'http://webtools.intranet.fedex.com:3000/iplanet_alert', 
+        data: { get_param: 'value' }, 
+        success: function (data) { 
+		//window.alert(data.length);
+         if (data.length == 0 )
+         {
+            $("#partition_success").show();
+			  //$("#partition_failure").hide();
+			 
+			
+		 }
+		  else {
+     //$("#partition_success").hide();
+	 $("#partition_failure").show();
+	 
+  }
+        }
+		
+    });
+	};
+	setInterval(get_partition_json,2000);
+	});
+	
+	</script>
 	
 	<script>
 
@@ -57,7 +91,7 @@
 			
         var data = google.visualization.arrayToDataTable([
           ['Label', 'Value'],
-          ['Memory', value_mem],
+         // ['Memory', value_mem],
           ['CPU', value_load]
           //['Network', 68]
         ]);
@@ -92,7 +126,7 @@
 	 function drawChart1() {
 			 $.get( "/iplanet_cpu1", function( data ) { 
     console.log("data - ", data);
-    var value_mem = data[0]["memory"];
+   var value_mem = data[0]["memory"];
 	value_mem = Number(value_mem);
 	var value_load = data[0]["cpu_load"];
 	value_load = Number(value_load);
@@ -101,7 +135,7 @@
 			
         var data = google.visualization.arrayToDataTable([
           ['Label', 'Value'],
-          ['Memory', value_mem],
+         // ['Memory', value_mem],
           ['CPU', value_load]
           //['Network', 68]
         ]);
@@ -143,7 +177,7 @@
 	
 </head>
 
-<body ng-controller="MasterCtrl"  ng-init="getDiskSpace()" >
+<body ng-controller="MasterCtrl"  ng-init="getDiskSpace(); iplanet_alert();" >
 
   <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
 
@@ -152,24 +186,14 @@
       <ul class="sidebar">
         <li class="sidebar-main">
           <a ng-click="toggleSidebar()">
-            DASHBOARD 
+            EAS DASHBOARD 
             <span class="menu-icon fa fa-arrows-h"></span>
           </a>
         </li>
-        	
-               </ul>
-      <div class="sidebar-footer">
-        <div class="col-xs-6">
-          <a href="#" target="_blank">
-            Help
-          </a>
-        </div>
-         <div class="col-xs-6">
-            <a href="#">
-                Query
-            </a>
-        </div>
-      </div>
+        <li class="sidebar-title"><span>REPORTS</span></li>
+                <li class="sidebar-list">
+				  <a href="/queuecounts#/">iPlanet Queue Counts </a>     
+		        </li>
     </div>
     <!-- End Sidebar -->
 
@@ -184,10 +208,10 @@
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 					<!-- <a class="pull-left"><img src="img/logosvcs.gif" style="height:41px;width:150px;margin-top:0px;margin-right:-60px; margin-left:-5px"></a>
 						<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li> -->
-                      <li><a data-toggle="pill" href="dashboard">Home</a></li>
+                      <li><a  href="dashboard">Home</a></li>
                            <!--<li><a data-toggle="pill" href="exchange">Exchange</a></li> -->
                                 <li class="active"><a data-toggle="pill" href="iplanet">Iplanet</a></li>
-								<li ><a data-toggle="pill" href="lastfullbackup">LastFullBackup</a></li>
+								<li ><a  href="lastfullbackup">LastFullBackup</a></li>
                               <!--  <li class="dropdown">
         <!--<a class="dropdown-toggle" data-toggle="dropdown" href="dashboard">Reports
         <span class="caret"></span></a>
@@ -222,18 +246,19 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="http://peg.sac.fedex.com/host/prh00939.prod">
+                        <a href="http://webtools.intranet.fedex.com:3000/peg_939#/">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">PEG GRAPHS</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
                         </a>
+						
                     </div>
                 </div>
 				
 				<div class="col-lg-3">
-                    
+                    <div id="chart_div" ></div>
                 </div>
 				
 				<div class="col-lg-3 ">
@@ -249,60 +274,30 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="http://peg.sac.fedex.com/host/prh00940.prod">
+                        <a href="http://webtools.intranet.fedex.com:3000/peg_940#/">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">PEG GRAPHS</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
                         </a>
                     </div>
+
                 </div>
 				
 				<div class="col-lg-3 ">
-                    					
+                    						 <div id="chart_div1" ></div> 				
                 </div>
 				</strong>
 			</div>
-		<div class="col-lg-4"><br><br> 
-         
-				<div id="notification_panel" class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i><b>Server Name: PRH00939</b>                                             
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="list-group">
-        <div id="chart_div" ></div>  <!-- AM graphs -->
-        </div>
-		</div>
-		</div>
-		</div>
-		<div class="col-lg-2">
-		</div>
-		<div class="col-lg-4"><br><br> 
-         
-				<div id="notification_panel" class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i><b>Server Name: PRH00940</b>                                             
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="list-group">
-        <div id="chart_div1" ></div>  <!-- AM graphs -->
-        </div>
-		</div>
-		</div>
-		</div>
-          	<div class="col-lg-2">
-					</div>
-		<div class="col-lg-8"><div class="widget">
+			<div class= "row-lg-6">
+		<!--	<div class="col-lg-8"><div class="widget">
 		<div class="widget-header ng-binding">
 		<i class="fa fa-tasks" ng-class="icon"></i> 
 		DISKSPACE REPORT 
 		<!--<div class="pull-right">
 		<a href="#" class="ng-scope">Manage</a>
-		</div>--></div>
+		</div>--><!--</div>
 	
 		<div class="widget-body medium no-padding" ng-class="classes" style="
     height: 150px;
@@ -327,7 +322,7 @@
 					<th>part12</th>
 				</tr>
 			</thead>
-		<tbody><tr ng-repeat="x in diskspace">
+		<tbody><tr ng-repeat="x in diskspace" >
 			<td> {{ x.server }} </td>
 			<td> {{ x.part1 }} </td>
 			<td> {{ x.part2 }} </td>
@@ -348,11 +343,76 @@
 		</div>
 		</div>
 		</div>
-		</div></div>
-		   	    </div>
+		</div></div>-->
+			</div>
+			<div class="col-lg-6">
+								  <div id ="partition_success" hidden>
+									
+                                   <div class="tile" id="tile-green" style="color:#fff;">
+									<h3 class="title" > No Partition Space issues <i class="fa fa-check-circle-o "></i> </h3>
+									
+									</div>
+                                
+								</div>
+								<div id="partition_failure" hidden>
+									<div class="tile red" id="tile-red">
+								<h3 class="title">PARTITION Space Alert!</h3> <a href="#myModal" data-toggle="modal" style="color:#fff;">	
+									<p>Click For Details!! </a></p></div>
+										</div>
+								</div>
+		<div class="col-lg-1">
 		
-	    
-		 </div><!-- End Page Content -->
+		</div>
+         <!-- AM graphs -->
+        <!-- MODAL FORMS BEGIN -->			
+			<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" >
+    
+      <!--# Modal  for Transport Queue content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Disk Space more than 62 !! </h4>
+        </div>
+        <div class="modal-body">
+             <div class="widget">
+		<!--<div class="widget-header ng-binding">
+		<i class="fa fa-tasks" ng-class="icon"></i> 
+		SERVER PERFORMANCE 
+		</div> -->
+		
+		<div class="widget-body large no-padding" ng-class="classes">
+		<div ng-hide="loading" class="widget-content">
+		<div class="table-responsive ng-scope"><table class="table">
+		<tbody>
+		<thead><tr><th>Server</th><th>Partition Name</th><th>Partition Space</th></tr></thead>
+		<tr ng-repeat="y in iplanet_alert">
+			<td > {{ y.server_name }} </td>
+			<td>{{y.part_number}}</td>
+			<td> {{ y.space_used}} </td>
+			
+			<!--<td id= "id_length"> {{ $index +1 }} </td> -->
+								
+		</tr>
+		
+		</tbody>
+		</table>
+		</div>
+		</div>
+		</div>
+		</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		 <!--  <button type="button" class="btn btn-default" ng-click="exportData();">Export</button> -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+		
+		</div>
+		</div> <!-- End Page Content -->
     </div><!-- End Content Wrapper -->
   </div><!-- End Page Wrapper -->
   

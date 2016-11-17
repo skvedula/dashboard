@@ -54,30 +54,7 @@
             <span class="menu-icon fa fa-arrows-h"></span>
           </a>
         </li>
-        <li class="sidebar-title"><span>Reports</span></li>
-                <li class="sidebar-list">
-		          <!--<a>Exchange <span class="menu-icon fa fa-wpforms"></span></a>-->
-				  <a href="exchange#/">Database report <span class="menu-icon fa fa-wpforms"></span></a>
-				  <a href="/exchange_hcheck#/" >Health Check <span class="menu-icon fa fa-wpforms"></span></a>
-                  <a>Email Domain Report <span class="menu-icon fa fa-wpforms"></span></a>     
-		        </li>
-	
-        <!-- <li class="sidebar-list">
-           <a href="#/tables">Iplanet <span class="menu-icon fa fa-table"></span></a>
-         </li>
-      </ul>-->
-    <!--  <div class="sidebar-footer">
-        <div class="col-xs-6">
-          <a href="#" target="_blank">
-            Help
-          </a>
-        </div>
-         <div class="col-xs-6">
-            <a href="#">
-                Query
-            </a>
-        </div>
-      </div>-->
+      
     </div>
     <!-- End Sidebar -->
   
@@ -97,7 +74,7 @@
 					<!-- <a class="pull-left"><img src="img/logosvcs.gif" style="height:41px;width:220px;margin-top:0px;margin-right:-60px; margin-left:-20px"></a> -->
                       <li ><a data-toggle="pill" href="dashboard">Home</a></li>
                           <!-- <li class="active"><a data-toggle="pill" href="exchange">Exchange</a></li> -->
-                                <li><a data-toggle="pill" href="">Iplanet</a></li>
+                                <li><a data-toggle="pill" href="iplanet">Iplanet</a></li>
 								<li ><a data-toggle="pill" href="lastfullbackup">LastFullBackup</a></li>
                                <!-- <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="dashboard">Reports
@@ -133,17 +110,17 @@
 		<div class="widget">
 		<div class="widget-header ng-binding">
 		<i class="fa fa-tasks" ng-class="icon"></i> 
-		<font size="4" color="4d0099">Email Domain Report</font>
-		<!--<div class="pull-right">
+		<font size="4" color="4d0099">PEG GRAPH FOR PRH00939</font>
+		<div class="pull-right">
 		<a href="#" class="ng-scope">Manage</a>
 		</div>--></div>
 	
 		<div class="widget-body medium no-padding" ng-class="classes" style="
-    height: 780px;
+    height: 780px;  overflow-y:hidden;
 ">
-		<div ng-hide="loading" class="widget-content">
+		<div ng-hide="loading" class="widget-content"> 
 		<div class="table-responsive ng-scope">
-		<iframe name="content" src="https://webtools.web.fedex.com/EmailDomainReport" height="790px" width="1625px"></iframe>
+		<iframe name="content" src="http://peg.sac.fedex.com/host/prh00939.prod" height="790px" width="1325px" ></iframe>
 		
 		
 		
@@ -156,38 +133,6 @@
 		</div>	
          </div>
 	    
-		
-		
-	<!--	<div class="row-lg-6" id="health-check"> 
-		<div class="col-lg-12">
-		<div class="widget" >
-		<div class="widget-header ng-binding">
-		<i class="fa fa-tasks" ng-class="icon"></i> Health Check <div class="pull-right" ><input type="text" placeholder="Search" class="form-control input-sm ng-scope">
-		</div>
-		</div>
-		<div class="widget-body medium no-padding" ng-class="classes">
-		<div ng-hide="loading" class="widget-content">
-		<div class="table-responsive ng-scope">
-		<table class="table">
-		<thead><tr><th class="text-center">SERVER</th><th>SITE</th><th>Role</th><th>DNS</th><th>PING</th><th>MAILFLOW TEST</th><th>MAPI</th><th>MB SERVICES</th><th>TRANSPORT SERVICES</th><th>State</th></tr></thead>
-		<tbody>
-		<tr><td class="text-center">PWN01262</td><td>COS</td><td>CLient Access</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN00514</td><td>PGH</td><td>Mailbox</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Everything's Fine!" class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN60020</td><td>PGH</td><td>HUb Transport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Check!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>
-		</tbody></table>
-		</div>
-		</div>
-		</div>
-		<div class="widget">
-		</div>
-		</div>
-		</div>
-		</div> -->
-	
-		
-		
-
-
       </div><!-- End Page Content -->
     </div><!-- End Content Wrapper -->
   </div><!-- End Page Wrapper -->
