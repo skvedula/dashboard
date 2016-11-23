@@ -25,12 +25,6 @@ app.get('/',function(req,res){
 app.get('/dashboard',function(req,res){
   res.sendFile(path.join(__dirname+'/dashboard.html'));
 });
-app.get('/dashboard_UI',function(req,res){
-  res.sendFile(path.join(__dirname+'/dashboard_UI.html'));
-});
-app.get('/dashboard_UI1',function(req,res){
-  res.sendFile(path.join(__dirname+'/dashboard_UI1.html'));
-});
 
 app.get('/jquery.min.js',function(req,res){
   res.sendFile(path.join(__dirname+'/public/js/jquery.min.js'));
