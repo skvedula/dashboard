@@ -45,7 +45,7 @@
 	
 </head>
 
-<body ng-controller="MasterCtrl" ng-init="getTableData()">
+<body ng-controller="MasterCtrl" ng-init="getTableData();getHCheckData();">
 
   <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
   
@@ -61,13 +61,19 @@
           </a>
         </li>
         <li class="sidebar-title"><span>Reports</span></li>
-                <li class="sidebar-list">
-		          <!--<a>Exchange <span class="menu-icon fa fa-wpforms"></span></a>-->
-				  <a>Database report <span class="menu-icon fa fa-wpforms"></span></a>
-				  <a href="/exchange_hcheck#/" >Health Check <span class="menu-icon fa fa-wpforms"></span></a>
-                  <a href="/email_domain#/">Email Domain Report <span class="menu-icon fa fa-wpforms"></span></a>     
-		        </li>
-	
+	  		<li class="sidebar-list">
+		  		<ul class="nav">
+		      	<li ng-class="{ active: isSet(1) }">
+		          	<a href ng-click="setTab(1)">Database report <span class="menu-icon fa fa-wpforms"></span></a>
+		       	</li>
+		       	<li ng-class="{ active: isSet(2) }">
+		          	<a href ng-click="setTab(2)">Health Check <span class="menu-icon fa fa-wpforms"></span></a>
+		       	</li>
+		       	<li ng-class="{ active: isSet(3) }">
+		          	<a href="/email_domain#/">Email Domain Report <span class="menu-icon fa fa-wpforms"><span></a>
+		       	</li>
+		     	</ul>
+		     </li>
         <!-- <li class="sidebar-list">
            <a href="#/tables">Iplanet <span class="menu-icon fa fa-table"></span></a>
          </li>
@@ -134,7 +140,7 @@
          <p>prh00939.prod</p>		
         <div id="amgraph"></div>  <!-- AM graphs should be deleted from this Exchange page when tool is Finalised -->
         </div>
-		<div class="row-lg-6">
+		<div ng-show="isSet(1)" class="row-lg-6">
 		<div class="col-lg-12">
 		
 		<div class="widget">
@@ -175,25 +181,62 @@
 		</div>	
          </div>
 	    
-		
-		
-	<!--	<div class="row-lg-6" id="health-check"> 
+		<div ng-show="isSet(2)" class="row-lg-6" id="health-check">  
 		<div class="col-lg-12">
 		<div class="widget" >
 		<div class="widget-header ng-binding">
-		<i class="fa fa-tasks" ng-class="icon"></i> Health Check <div class="pull-right" ><input type="text" placeholder="Search" class="form-control input-sm ng-scope">
+		<i class="fa fa-tasks" ng-class="icon"></i> Health Check <div class="pull-right" >
+		<input type="text" value="Search" ng-model="searchquery" placeholder="Search" class="form-control input-sm ng-scope">
+		
 		</div>
 		</div>
-		<div class="widget-body medium no-padding" ng-class="classes">
+		<div class="widget-body medium no-padding" ng-class="classes" style="
+    height: 620px;
+">
 		<div ng-hide="loading" class="widget-content">
 		<div class="table-responsive ng-scope">
 		<table class="table">
-		<thead><tr><th class="text-center">SERVER</th><th>SITE</th><th>Role</th><th>DNS</th><th>PING</th><th>MAILFLOW TEST</th><th>MAPI</th><th>MB SERVICES</th><th>TRANSPORT SERVICES</th><th>State</th></tr></thead>
-		<tbody>
-		<tr><td class="text-center">PWN01262</td><td>COS</td><td>CLient Access</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN00514</td><td>PGH</td><td>Mailbox</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Everything's Fine!" class="text-success"><i class="fa fa-check"></i></span></td></tr>
-		<tr><td class="text-center">PWN60020</td><td>PGH</td><td>HUb Transport</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td>PASS</td><td><span tooltip="Check!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>
-		</tbody></table>
+                        <tbody>
+                        <thead>
+                          <tr>
+                            <th>Server</th>
+                            <th>Site</th>
+                            <th>Roles</th>
+                            <th>Version</th>
+                            <th>DNS</th>
+                            <th>Ping</th>
+                            <th>Uptime</th>
+                            <th>CA Services</th>
+                            <th>HT Services</th>
+                            <th>MB Services</th>
+                            <th>UM Services</th>
+                            <th>Transport Queue</th>
+                            <th>PF DBs Mounted</th>
+                            <th>MB DBs Mounted</th>
+                            <th>MAPI Test</th>
+                            <th>Mail Flow Test</th>  
+                          </tr>
+                        </thead>
+                        <tr ng-repeat="x in hcheckData | filter:searchquery">
+                          <td> {{ x.server }} </td>
+                          <td> {{ x.site }} </td>
+                          <td> {{ x.role }} </td>
+                          <td> {{ x.version }} </td>
+                          <td ng-class="getStatusClass(x.dns)"> {{ x.dns }} </td>
+                          <td ng-class="getStatusClass(x.ping)"> {{ x.ping }} </td>
+                          <td ng-class="getStatusClass(x.uptime)"> {{ x.uptime }} </td>
+                          <td ng-class="getStatusClass(x.CAservices)"> {{ x.CAservices }} </td>
+                          <td ng-class="getStatusClass(x.HTservices)"> {{ x.HTservices }} </td>
+                          <td ng-class="getStatusClass(x.MBservices)"> {{ x.MBservices }} </td>
+                          <td ng-class="getStatusClass(x.UMservices)"> {{ x.UMservices }} </td>
+                          <td ng-class="getStatusClass(x.TransportQueue)"> {{ x.TransportQueue }} </td>
+                          <td ng-class="getStatusClass(x.PfDb)"> {{ x.PfDb }} </td>
+                          <td ng-class="getStatusClass(x.MbDb)"> {{ x.MbDb }} </td>
+                          <td ng-class="getStatusClass(x.MapiTest)"> {{ x.MapiTest }} </td>
+                          <td ng-class="getStatusClass(x.MailFlow)"> {{ x.MailFlow }} </td>                                                  
+                        </tr>
+                        </tbody>	
+  </table>
 		</div>
 		</div>
 		</div>
@@ -201,7 +244,9 @@
 		</div>
 		</div>
 		</div>
-		</div> -->
+		</div>		
+		
+
 	
 		
 		

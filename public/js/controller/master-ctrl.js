@@ -9,6 +9,17 @@ function MasterCtrl($http, $scope, $cookieStore, $timeout) {
     /**
      * Sidebar Toggle & Cookie Control
      */
+ 
+    $scope.tab = 1;
+
+    $scope.setTab = function(newTab){
+      $scope.tab = newTab;
+    };
+
+    $scope.isSet = function(tabNum){
+      return $scope.tab === tabNum;
+    };
+
     var mobileView = 992;
 
     $scope.getWidth = function() {
