@@ -7,88 +7,90 @@
  <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
    <link rel="stylesheet" type="text/css" href="css/amgraphs.css">
    <link rel="stylesheet" type="text/css" href="css/tile.css">
+   <link rel="stylesheet" type="text/css" href="css/notification.min.css">
+   <link href="css/font-awesome.min.css" rel="stylesheet">
  <noscript>
-	<h2>JavaScript is DISABLED! Please enable it for smooth UI experience.</h2>
+  <h2>JavaScript is DISABLED! Please enable it for smooth UI experience.</h2>
 
-	<style type="text/css">
-		#page-wrapper { display:none; }
-	</style>
+  <style type="text/css">
+    #page-wrapper { display:none; }
+  </style>
 </noscript>
   
   <title>EAS Performance Dashboard</title>
   <!-- STYLES -->
        <link rel="stylesheet" type="text/css" href="css/main.min.css">
-	    <!-- endbuild -->
+      <!-- endbuild -->
   <!-- SCRIPTS -->
   <script src="/jquery.min.js"></script>
   <script src="/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/amcharts.js"></script>
     <script src="https://www.amcharts.com/lib/3/pie.js"></script>
      <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-	 
-	 <!-- amgraphs-->
-	 <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/serial.js"></script>
+   
+   <!-- amgraphs-->
+   <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/serial.js"></script>
 <script type="text/javascript" src="http://cdn.amcharts.com/lib/3/lang/ru.js"></script>
       <script type="text/javascript" src="js/main.min.js"></script> 
       
-	       <script type="text/javascript" src="js/morris/jquery.min.js"></script>
+         <script type="text/javascript" src="js/morris/jquery.min.js"></script>
            <script type="text/javascript" src="js/morris/raphael-min.js"></script>
            
 
   <!-- Custom Scripts -->
         <script type="text/javascript" src="js/dashboard.min.js"></script>
         <script type="text/javascript" src="js/custom/amcharts.js"></script>   
-		<script type="text/javascript" src="js/custom/amgraphs.js"></script>
-		<script type="text/javascript" src="js/controller/master-ctrl.js"></script>
+    <script type="text/javascript" src="js/custom/amgraphs.js"></script>
+    <script type="text/javascript" src="js/controller/master-ctrl.js"></script>
     <script src="/dataloader.min.js"></script> 
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script>
-	 $(document).ready(function () {
-	 get_partition_json();
-	function get_partition_json() {
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+   $(document).ready(function () {
+   get_partition_json();
+  function get_partition_json() {
   
    $.ajax({ 
         type: 'GET', 
         url: 'http://webtools.intranet.fedex.com:3000/iplanet_alert', 
         data: { get_param: 'value' }, 
         success: function (data) { 
-		//window.alert(data.length);
+    //window.alert(data.length);
          if (data.length == 0 )
          {
             $("#partition_success").show();
-			  //$("#partition_failure").hide();
-			 
-			
-		 }
-		  else {
+        //$("#partition_failure").hide();
+       
+      
+     }
+      else {
      //$("#partition_success").hide();
-	 $("#partition_failure").show();
-	 
+   $("#partition_failure").show();
+   
   }
         }
-		
+    
     });
-	};
-	setInterval(get_partition_json,2000);
-	});
-	
-	</script>
-	
-	<script>
+  };
+  setInterval(get_partition_json,2000);
+  });
+  
+  </script>
+  
+  <script>
 
       google.charts.load('current', {'packages':['gauge']});
       google.charts.setOnLoadCallback(drawChart);
-	   google.charts.setOnLoadCallback(drawChart1);
+     google.charts.setOnLoadCallback(drawChart1);
       function drawChart() {
-			 $.get( "/iplanet_cpu", function( data ) { 
+       $.get( "/iplanet_cpu", function( data ) { 
     console.log("data - ", data);
     var value_mem = data[0]["memory"];
-	value_mem = Number(value_mem);
-	var value_load = data[0]["cpu_load"];
-	value_load = Number(value_load);
-  //window.alert(value_mem);	
-    //window.alert(value_load);	
-			
+  value_mem = Number(value_mem);
+  var value_load = data[0]["cpu_load"];
+  value_load = Number(value_load);
+  //window.alert(value_mem);  
+    //window.alert(value_load); 
+      
         var data = google.visualization.arrayToDataTable([
           ['Label', 'Value'],
          // ['Memory', value_mem],
@@ -120,19 +122,19 @@
           chart.draw(data, options);
         }, 26000); */
      });
-	 }
+   }
 
-	 
-	 function drawChart1() {
-			 $.get( "/iplanet_cpu1", function( data ) { 
+   
+   function drawChart1() {
+       $.get( "/iplanet_cpu1", function( data ) { 
     console.log("data - ", data);
    var value_mem = data[0]["memory"];
-	value_mem = Number(value_mem);
-	var value_load = data[0]["cpu_load"];
-	value_load = Number(value_load);
-  //window.alert(value_mem);	
-    //window.alert(value_load);	
-			
+  value_mem = Number(value_mem);
+  var value_load = data[0]["cpu_load"];
+  value_load = Number(value_load);
+  //window.alert(value_mem);  
+    //window.alert(value_load); 
+      
         var data = google.visualization.arrayToDataTable([
           ['Label', 'Value'],
          // ['Memory', value_mem],
@@ -164,17 +166,19 @@
           chart.draw(data, options);
         }, 26000); */
      });
-	 }
+   }
 
+  
+  
 
 
 </script>
 
-	
-	
+  
+  
  
     <!-- endbuild --> 
-	
+  
 </head>
 
 <body ng-controller="MasterCtrl"  ng-init="getDiskSpace(); iplanet_alert();" >
@@ -190,10 +194,46 @@
             <span class="menu-icon fa fa-arrows-h"></span>
           </a>
         </li>
-        <li class="sidebar-title"><span>REPORTS</span></li>
+    
+  <li class="sidebar-title"><span>REPORTS</span></li>
                 <li class="sidebar-list">
-				  <a href="/queuecounts#/">iPlanet Queue Counts </a>     
-		        </li>
+          <a href="/queuecounts#/">iPlanet Queue Counts </a>     
+            </li> 
+  
+             <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-th-list"></i> IPlanet Queue Counts <b class="caret"></b></a>
+          <ul class="dropdown-menu"> 
+            <li><a href="/">Item 1</a></li>
+            <li><a href="/">Item 2</a></li>
+            <li><a href="/">Item 3</a></li>
+          </ul>
+        </li>
+             
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> Profile <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/"><i class="glyphicon glyphicon-user"></i> Profile</a></li>
+            <li><a href="/"><i class="glyphicon glyphicon-plus"></i> Account</a></li>
+            <li><a href="/"> Settings</a></li>
+            <li><a href="/"> Notifications</a></li>           
+          </ul>
+        </li>
+      
+      </ul>
+        
+    <!--    <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <a href="#">iPlanet <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu  collapse" id="new">
+                  <li><a href="/queuecounts#/">iplanet queue counts</a></li>
+                  <li>New New 2</li>
+                  <li>New New 3</li>
+                </ul> -->
+        
+        
+        
+        </ul>
     </div>
     <!-- End Sidebar -->
 
@@ -203,15 +243,15 @@
         <!-- Header Bar -->
        <nav class="navbar navbar-dark bg-inverse"style="background-color: #ffffff" >
           
-		            <ul class="nav nav-pills">
-					<a class="pull-left"><img src="img/logosvcs.gif" style="height:50px;width:140px;margin-top:0px;margin-right:-60px; margin-left:-5px"></a>
-					<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-					<!-- <a class="pull-left"><img src="img/logosvcs.gif" style="height:41px;width:150px;margin-top:0px;margin-right:-60px; margin-left:-5px"></a>
-						<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li> -->
+                <ul class="nav nav-pills">
+          <a class="pull-left"><img src="img/logosvcs.gif" style="height:50px;width:140px;margin-top:0px;margin-right:-60px; margin-left:-5px"></a>
+          <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+          <!-- <a class="pull-left"><img src="img/logosvcs.gif" style="height:41px;width:150px;margin-top:0px;margin-right:-60px; margin-left:-5px"></a>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li> -->
                       <li><a  href="dashboard">Home</a></li>
                            <!--<li><a data-toggle="pill" href="exchange">Exchange</a></li> -->
                                 <li class="active"><a data-toggle="pill" href="iplanet">Iplanet</a></li>
-								<li ><a  href="lastfullbackup">LastFullBackup</a></li>
+                <li ><a  href="lastfullbackup">LastFullBackup</a></li>
                               <!--  <li class="dropdown">
         <!--<a class="dropdown-toggle" data-toggle="dropdown" href="dashboard">Reports
         <span class="caret"></span></a>
@@ -221,18 +261,21 @@
           <li><a href="https://webtools.web.fedex.com/EmailDomainReport">Enterprise Email Domain Report</a></li>
         </ul>
       </li>-->
+    <div class="alert-box success pull-right"><span>success: </span>Partition Space is below the Threshold for Iplanet</div>
+  <div class="alert-box warning pull-right"><span>warning: </span>Partition Alert!! <a href="#myModal" data-toggle="modal" >  
+                  Click For Details!! </a></div>
                     </ul>
            
             
-			</nav>
-			       
+      </nav>
+             
         <!-- End Header Bar -->
 
         <!-- Main Content -->
         <div class="ui-view"> 
-		<div class="row-lg-6">
-		<!-- Tiles for Iplanet -->
-		<div class="col-lg-3">
+    <div class="row-lg-6">
+    <!-- Tiles for Iplanet -->
+    <div class="col-lg-3">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
@@ -240,28 +283,28 @@
                                     <i class="fa fa-bar-chart fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-								<strong>
+                <strong>
                                     <div class="huge">prh00939</div>
                                     <div>Iplanet Server</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="http://webtools.intranet.fedex.com:3000/peg_939#/">
+                        <button type="button" class="btn btn-link" onclick='$("#peg939").show(); $("#peg940").hide();'>
                             <div class="panel-footer">
                                 <span class="pull-left">PEG GRAPHS</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-down"></i></span>
                                 <div class="clearfix"></div>
                             </div>
-                        </a>
-						
+                        </button>
+            
                     </div>
                 </div>
-				
-				<div class="col-lg-3">
+        
+        <div class="col-lg-3">
                     <div id="chart_div" ></div>
                 </div>
-				
-				<div class="col-lg-3 ">
+        
+        <div class="col-lg-3 ">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
@@ -274,98 +317,140 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="http://webtools.intranet.fedex.com:3000/peg_940#/">
+                         <button type="button" class="btn btn-link" onclick='$("#peg940").show();$("#peg939").hide();'>
                             <div class="panel-footer">
                                 <span class="pull-left">PEG GRAPHS</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
-                        </a>
+                        </button>
                     </div>
 
                 </div>
-				
-				<div class="col-lg-3 ">
-                    						 <div id="chart_div1" ></div> 				
+        
+        <div class="col-lg-3 ">
+                                 <div id="chart_div1" ></div>         
                 </div>
-				</strong>
-			</div>
-			<div class= "row-lg-6">
-		<!--	<div class="col-lg-8"><div class="widget">
-		<div class="widget-header ng-binding">
-		<i class="fa fa-tasks" ng-class="icon"></i> 
-		DISKSPACE REPORT 
-		<!--<div class="pull-right">
-		<a href="#" class="ng-scope">Manage</a>
-		</div>--><!--</div>
-	
-		<div class="widget-body medium no-padding" ng-class="classes" style="
+        </strong>
+      </div>
+      <div class= "row-lg-6">
+    <!--  <div class="col-lg-8"><div class="widget">
+    <div class="widget-header ng-binding">
+    <i class="fa fa-tasks" ng-class="icon"></i> 
+    DISKSPACE REPORT 
+    <!--<div class="pull-right">
+    <a href="#" class="ng-scope">Manage</a>
+    </div>--><!--</div>
+  
+    <div class="widget-body medium no-padding" ng-class="classes" style="
     height: 150px;
 ">
-		<div ng-hide="loading" class="widget-content">
-		<div class="table-responsive ng-scope"><table class="table">
-		<tbody>
-			</tbody><thead>
-				<tr>
-				    <th>server</th>
-					<th>part1</th>
-					<th>part2</th>
-					<th>part3</th>
-					<th>part4</th>
-					<th>part5</th>
-					<th>part6</th>
-					<th>part7</th>
-					<th>part8</th>
-					<th>part9</th>
-					<th>part10</th>
-					<th>part11</th>
-					<th>part12</th>
-				</tr>
-			</thead>
-		<tbody><tr ng-repeat="x in diskspace" >
-			<td> {{ x.server }} </td>
-			<td> {{ x.part1 }} </td>
-			<td> {{ x.part2 }} </td>
-			<td> {{ x.part3 }} </td>
-			<td> {{ x.part4 }} </td>
-			<td> {{ x.part5 }} </td>
-			<td> {{ x.part6 }} </td>
-			<td> {{ x.part7 }} </td>
-			<td> {{ x.part8 }} </td>
-			<td> {{ x.part9 }} </td>
-			<td> {{ x.part10 }} </td>
-			<td> {{ x.part11 }} </td>
-			<td> {{ x.part12 }} </td>
-			
-		</tr>
-		</tbody>
-		</table>
-		</div>
-		</div>
-		</div>
-		</div></div>-->
-			</div>
-			<div class="col-lg-6">
-								  <div id ="partition_success" hidden>
-									
+    <div ng-hide="loading" class="widget-content">
+    <div class="table-responsive ng-scope"><table class="table">
+    <tbody>
+      </tbody><thead>
+        <tr>
+            <th>server</th>
+          <th>part1</th>
+          <th>part2</th>
+          <th>part3</th>
+          <th>part4</th>
+          <th>part5</th>
+          <th>part6</th>
+          <th>part7</th>
+          <th>part8</th>
+          <th>part9</th>
+          <th>part10</th>
+          <th>part11</th>
+          <th>part12</th>
+        </tr>
+      </thead>
+    <tbody><tr ng-repeat="x in diskspace" >
+      <td> {{ x.server }} </td>
+      <td> {{ x.part1 }} </td>
+      <td> {{ x.part2 }} </td>
+      <td> {{ x.part3 }} </td>
+      <td> {{ x.part4 }} </td>
+      <td> {{ x.part5 }} </td>
+      <td> {{ x.part6 }} </td>
+      <td> {{ x.part7 }} </td>
+      <td> {{ x.part8 }} </td>
+      <td> {{ x.part9 }} </td>
+      <td> {{ x.part10 }} </td>
+      <td> {{ x.part11 }} </td>
+      <td> {{ x.part12 }} </td>
+      
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    </div></div>
+      </div>
+      <!--<div class="col-lg-6">
+                  <div id ="partition_success" hidden>
+                  
                                    <div class="tile" id="tile-green" style="color:#fff;">
-									<h3 class="title" > No Partition Space issues <i class="fa fa-check-circle-o "></i> </h3>
-									
-									</div>
+                  <h3 class="title" > No Partition Space issues <i class="fa fa-check-circle-o "></i> </h3>
+                  
+                  </div>
                                 
-								</div>
-								<div id="partition_failure" hidden>
-									<div class="tile red" id="tile-red">
-								<h3 class="title">PARTITION Space Alert!</h3> <a href="#myModal" data-toggle="modal" style="color:#fff;">	
-									<p>Click For Details!! </a></p></div>
-										</div>
-								</div>
-		<div class="col-lg-1">
-		
-		</div>
+                </div>
+                <div id="partition_failure" hidden>
+                  <div class="tile red" id="tile-red">
+                <h3 class="title">PARTITION Space Alert!</h3> <a href="#myModal" data-toggle="modal" style="color:#fff;"> 
+                  <p>Click For Details!! </a></p></div>
+                    </div>
+                </div>
+    <div class="col-lg-1">
+    
+    </div> -->
+    
+    <div class="row-lg-6">
+    <div class="col-lg-12">
+    
+    <div class="widget" id="peg939">
+    <div class="widget-header ng-binding">
+    <i class="fa fa-tasks" ng-class="icon"></i> 
+    <font size="4" color="#4d0099">PEG GRAPH FOR PRH00939</font>
+    <div class="pull-right">
+    <a href="#" class="ng-scope">Manage</a>
+    </div></div>
+  
+    <div class="widget-body medium no-padding" ng-class="classes" style="height: 780px;  overflow-y:hidden;">
+    <div ng-hide="loading" class="widget-content"> 
+    <div class="table-responsive ng-scope">
+    <iframe name="content" src="http://peg.sac.fedex.com/host/prh00939.prod" height="790px" width="100%" ></iframe>
+    
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="widget" id="peg940" hidden>
+    <div class="widget-header ng-binding">
+    <i class="fa fa-tasks" ng-class="icon"></i> 
+    <font size="4" color="#4d0099">PEG GRAPH FOR PRH00940</font>
+    <div class="pull-right">
+    <a href="#" class="ng-scope">Manage</a>
+    </div></div>
+  
+    <div class="widget-body medium no-padding" ng-class="classes" style="height: 780px;  overflow-y:hidden;">
+    <div ng-hide="loading" class="widget-content"> 
+    <div class="table-responsive ng-scope">
+    <iframe name="content" src="http://peg.sac.fedex.com/host/prh00940.prod" height="790px" width="100%" ></iframe>
+    
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    
+    
          <!-- AM graphs -->
-        <!-- MODAL FORMS BEGIN -->			
-			<div class="modal fade" id="myModal" role="dialog">
+        <!-- MODAL FORMS BEGIN -->      
+      <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog" >
     
       <!--# Modal  for Transport Queue content-->
@@ -376,43 +461,43 @@
         </div>
         <div class="modal-body">
              <div class="widget">
-		<!--<div class="widget-header ng-binding">
-		<i class="fa fa-tasks" ng-class="icon"></i> 
-		SERVER PERFORMANCE 
-		</div> -->
-		
-		<div class="widget-body large no-padding" ng-class="classes">
-		<div ng-hide="loading" class="widget-content">
-		<div class="table-responsive ng-scope"><table class="table">
-		<tbody>
-		<thead><tr><th>Server</th><th>Partition Name</th><th>Partition Space</th></tr></thead>
-		<tr ng-repeat="y in iplanet_alert">
-			<td > {{ y.server_name }} </td>
-			<td>{{y.part_number}}</td>
-			<td> {{ y.space_used}} </td>
-			
-			<!--<td id= "id_length"> {{ $index +1 }} </td> -->
-								
-		</tr>
-		
-		</tbody>
-		</table>
-		</div>
-		</div>
-		</div>
-		</div>
+    <!--<div class="widget-header ng-binding">
+    <i class="fa fa-tasks" ng-class="icon"></i> 
+    SERVER PERFORMANCE 
+    </div> -->
+    
+    <div class="widget-body large no-padding" ng-class="classes">
+    <div ng-hide="loading" class="widget-content">
+    <div class="table-responsive ng-scope"><table class="table">
+    <tbody>
+    <thead><tr><th>Server</th><th>Partition Name</th><th>Partition Space</th></tr></thead>
+    <tr ng-repeat="y in iplanet_alert">
+      <td > {{ y.server_name }} </td>
+      <td>{{y.part_number}}</td>
+      <td> {{ y.space_used}} </td>
+      
+      <!--<td id= "id_length"> {{ $index +1 }} </td> -->
+                
+    </tr>
+    
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		 <!--  <button type="button" class="btn btn-default" ng-click="exportData();">Export</button> -->
+     <!--  <button type="button" class="btn btn-default" ng-click="exportData();">Export</button> -->
         </div>
       </div>
       
     </div>
   </div>
-		
-		</div>
-		</div> <!-- End Page Content -->
+    
+    </div>
+    </div> <!-- End Page Content -->
     </div><!-- End Content Wrapper -->
   </div><!-- End Page Wrapper -->
   
