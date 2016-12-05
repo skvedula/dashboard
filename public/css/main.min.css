@@ -12019,12 +12019,28 @@ td.visible-print, th.visible-print {
     content: "\f1e1"}
 .fa-bomb:before {
     content: "\f1e2"}
+.nav li.dropdown a:hover, .nav li.dropdown a:focus {
+    background-color: #2d3e63;
+    border-left: 3px solid #e99d1a;
+}
+.nav li.dropdown.open a, .nav li.dropdown.open a:focus {
+    background-color: #2d3e63;
+    border-left: 3px solid #e99d1a;
+}
+
+.nav li.dropdown.open ul.dropdown-menu {
+    background-color: #2d3e63;
+    text-align: center;
+}
+
 #content-wrapper {
     padding-left: 0;
     margin-left: 0;
     width: 100%;
     height: auto;
 }
+
+
 @media only screen and (min-width:561px) {
     #page-wrapper.open {
     padding-left: 250px;
