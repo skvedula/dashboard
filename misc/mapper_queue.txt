@@ -1,0 +1,198 @@
+child_process = require('child_process');
+
+var task1 = child_process.exec(`ssh root@prh22025.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+         result= stdout.trim().replace("Total requests:", ' ');
+           console.log('Total requests for prh22025:' + result);
+            //console.log('stderr: ' + stderr);
+            if (error !== null) {
+              console.log('exec error: ' + error);
+                }
+                 });
+
+var task2 = child_process.exec(`ssh root@prh22026.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+        result= stdout.trim().replace("Total requests:", ' ');
+        console.log('Total requests for prh22026:' + result);
+        if (error !== null) {
+            console.log('exec error: ' + error);
+            }
+            });
+var task3 = child_process.exec(`ssh root@prh22027.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for prh22027:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task4 = child_process.exec(`ssh root@prh22028.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for prh22028:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task5 = child_process.exec(`ssh root@prh22029.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for prh22029:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task6 = child_process.exec(`ssh root@prh22030.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for prh22030:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task7 = child_process.exec(`ssh root@prh22031.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for prh22031:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task8 = child_process.exec(`ssh root@prh22032.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for prh22032:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task9 = child_process.exec(`ssh root@prh22033.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for prh22033:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task10 = child_process.exec(`ssh root@prh22034.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for prh22034:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task11 = child_process.exec(`ssh root@prh22035.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for prh22035:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task12 = child_process.exec(`ssh root@prh22036.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for prh22036:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                             });
+var task13 = child_process.exec(`ssh root@pvma00005.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for pvma00005:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task14 = child_process.exec(`ssh root@pvma00006.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for pvma00006:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task15 = child_process.exec(`ssh root@pvma00007.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for pvma00007:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task16 = child_process.exec(`ssh root@pvma00008.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for pvma00008:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task17 = child_process.exec(`ssh root@pvma00009.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for pvma00009:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+																	var task18 = child_process.exec(`ssh root@pvma00010.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+                result= stdout.trim().replace("Total requests:", ' ');
+                        console.log('Total requests for pvma00010:' + result);
+                                if (error !== null) {
+                                            console.log('exec error: ' + error);
+                                                        }
+                                                                    });
+var task19 = child_process.exec(`ssh root@pvma00011.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+  result= stdout.trim().replace("Total requests:", ' ');
+  console.log('Total requests for pvma00011:' + result);
+   if (error !== null) {
+   console.log('exec error: ' + error);
+   }
+   });
+
+var task20 = child_process.exec(`ssh root@pvma00012.prod.fedex.com "/usr/bin/mailq | grep 'Total requests:'"`, function (error, stdout, stderr) {
+   result= stdout.trim().replace("Total requests:", ' ');
+   console.log('Total requests for pvma00012:' + result);
+   if (error !== null) {
+   console.log('exec error: ' + error);
+   }
+   });
+
+
+   
+   OUTPUT:
+   
+ Total requests for pvma00010:  12
+Total requests for prh22025:  56
+Total requests for prh22026:  51
+Total requests for prh22028:  51
+Total requests for prh22029:  50
+Total requests for prh22030:  40
+Total requests for prh22032:  20
+Total requests for prh22031:  44
+Total requests for prh22033:  60
+Total requests for prh22035:  78
+Total requests for prh22036:  79
+Total requests for prh22027:  62
+Total requests for prh22034:  110
+
+ original Perl script:
+#!/opt/fedex/web/bin/perl
+
+###
+# Display the summary lines of the mailq command on all mapper servers.
+###
+
+use lib '/opt/fedex/shared/lib';
+use mapperNodes;
+use CGI;
+use strict;
+$|++;
+
+my $q = new CGI;
+
+print $q->header();
+print $q->start_html( -title => "Mail Queues on Mapper Boxes" );
+print $q->h1("Current mailq results for mapper boxes");
+
+my $m = new mapperNodes;
+my @mappers = $m->all_mapper_hostnames();
+print "<PRE>";
+for my $mapper (@mappers)
+{
+    print "\n<b>Queue totals for $mapper:</b>\n";
+    my @lines = `ssh -q -l root $mapper /usr/bin/mailq | grep ' request'`;
+    # my @lines = `ssh -q -l root $mapper /usr/bin/mailq | grep -v ' is empty'`;
+    for (@lines) { s/\<//g; s/\>//g; print $_; }
+}
+print "</PRE>";
+
+print $q->end_html();
+
+exit;
